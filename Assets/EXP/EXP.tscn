@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfljohcqk62wb"]
+
+[ext_resource type="Script" path="res://Assets/EXP/EXP.gd" id="1_4h7m7"]
+[ext_resource type="PackedScene" uid="uid://cwmuht5irwtjo" path="res://Assets/Nuts and Bolts/TwoBolts.tscn" id="2_et817"]
+[ext_resource type="PackedScene" uid="uid://bk84loqd7uqar" path="res://Assets/Nuts and Bolts/Screw.tscn" id="3_nq6i0"]
+[ext_resource type="PackedScene" uid="uid://cpuy22s2faf78" path="res://Assets/Nuts and Bolts/BoltAndNut.tscn" id="4_bhqhv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4tu26"]
+
+[node name="EXP" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_4h7m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4tu26")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -9
+scale = Vector2(0.25, 0.25)
+
+[node name="BoltAndNut" parent="Sprite2D" instance=ExtResource("4_bhqhv")]
+
+[node name="Screw" parent="Sprite2D" instance=ExtResource("3_nq6i0")]
+
+[node name="TwoBolts" parent="Sprite2D" instance=ExtResource("2_et817")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HitStats" load_steps=2 format=3 uid="uid://on08nh1d58g3"]
+
+[ext_resource type="Script" path="res://Assets/HitBox/HitStats.gd" id="1_n50jb"]
+
+[resource]
+script = ExtResource("1_n50jb")
+damage = 4
+knockback = 50
+stun = 0.1

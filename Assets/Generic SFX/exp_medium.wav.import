@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dchlhcj565hgv"
+path="res://.godot/imported/exp_medium.wav-df739d9fca75314aae5dc1f28c814454.sample"
+
+[deps]
+
+source_file="res://Assets/Generic SFX/exp_medium.wav"
+dest_files=["res://.godot/imported/exp_medium.wav-df739d9fca75314aae5dc1f28c814454.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

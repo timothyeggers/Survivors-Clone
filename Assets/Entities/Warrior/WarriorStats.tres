@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://civue6qdi066a"]
+
+[ext_resource type="Script" path="res://Assets/Player/PlayerStats.gd" id="1_lqt6a"]
+
+[resource]
+script = ExtResource("1_lqt6a")
+move_speed = 1
+attacks = 2
+attack_speed = 1
+attack_cd = 0.5
+health = 10

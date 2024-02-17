@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://dp0kxdhy1b8f3"]
+
+[ext_resource type="Texture2D" uid="uid://cpun1nj7dd1u6" path="res://Assets/NatureBolt/mushroom_bomb.png" id="1_4blvx"]
+[ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="2_f407c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0bn7"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_c8i28"]
+resource_name = "sprout"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqdag"]
+_data = {
+"sprout": SubResource("Animation_c8i28")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjqed"]
+atlas = ExtResource("1_4blvx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mva47"]
+atlas = ExtResource("1_4blvx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s4p2"]
+atlas = ExtResource("1_4blvx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xjg4c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjqed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mva47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0s4p2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Curve" id="Curve_l8ub4"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.853933, 0.912088), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="NatureBolt" type="Area2D"]
+position = Vector2(144, 40)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e0bn7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iqdag")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xjg4c")
+frame = 2
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 128
+speed_scale = 1.2
+explosiveness = 0.09
+texture = ExtResource("2_f407c")
+emission_shape = 1
+emission_sphere_radius = 49.14
+gravity = Vector2(0, 0)
+radial_accel_min = 33.3
+radial_accel_max = 33.3
+scale_amount_min = 0.2
+color = Color(0.682353, 0, 0.686275, 1)
+hue_variation_max = 0.17
+hue_variation_curve = SubResource("Curve_l8ub4")

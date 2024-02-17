@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HurtBoxStats" load_steps=2 format=3 uid="uid://bg5msx6hsucbb"]
+
+[ext_resource type="Script" path="res://Assets/HurtBox/HurtBoxStats.gd" id="1_dnoxl"]
+
+[resource]
+script = ExtResource("1_dnoxl")
+health = 8.0
+knockback_cd = 0.5

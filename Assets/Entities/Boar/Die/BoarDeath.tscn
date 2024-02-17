@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr4egtr6lbvir"]
+
+[ext_resource type="SpriteFrames" uid="uid://ohc5dwp5asux" path="res://Assets/Entities/Boar/Boar.tres" id="1_h0kmx"]
+[ext_resource type="Script" path="res://Assets/Entities/Boar/Die/BoarDeath.gd" id="1_hlap5"]
+
+[node name="BoarDeath" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_hlap5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.360784, 0.360784, 0.360784, 1)
+rotation = -3.14159
+scale = Vector2(1, -1)
+sprite_frames = ExtResource("1_h0kmx")
+animation = &"death"
+frame = 3
+frame_progress = 1.0

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SoundEffect" load_steps=3 format=3 uid="uid://csgh5kq1fbq66"]
+
+[ext_resource type="Script" path="res://Assets/SoundEffect.gd" id="1_hsh51"]
+[ext_resource type="AudioStream" uid="uid://dkoyxusqosorm" path="res://Assets/Generic SFX/hit_wave.wav" id="2_xyaqh"]
+
+[resource]
+script = ExtResource("1_hsh51")
+stream = ExtResource("2_xyaqh")
+max_concurrent = 3
+cascade_sound = false
+pitch_min = 0.8
+pitch_max = 1.0

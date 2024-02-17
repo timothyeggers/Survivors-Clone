@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dghfxlmcbnuol"
+path="res://.godot/imported/MeleeSwingsPack_96khz_Stereo_HighSwings15.wav-6fcb1e88e70a6e651a122432c476fdbc.sample"
+
+[deps]
+
+source_file="res://Assets/Generic SFX/MeleeSwingsPack_96khz_Stereo_HighSwings15.wav"
+dest_files=["res://.godot/imported/MeleeSwingsPack_96khz_Stereo_HighSwings15.wav-6fcb1e88e70a6e651a122432c476fdbc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

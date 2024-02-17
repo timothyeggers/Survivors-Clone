@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://bltib2icqlg5m"]
+
+[ext_resource type="Script" path="res://Assets/Entities/Boar/Boar.gd" id="1_rkytx"]
+[ext_resource type="SpriteFrames" uid="uid://ohc5dwp5asux" path="res://Assets/Entities/Boar/Boar.tres" id="2_f7022"]
+[ext_resource type="Resource" uid="uid://cefaexokhyadh" path="res://Assets/Entities/Boar/Die/OnBoarDeath.tres" id="2_scr4u"]
+[ext_resource type="PackedScene" uid="uid://b0n5vt2twjyg" path="res://Assets/HurtBox/HurtBox.tscn" id="4_8h464"]
+[ext_resource type="Resource" uid="uid://q37oo7seq5x4" path="res://Assets/Entities/Boar/BoarStats.tres" id="5_2roal"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3u5g0"]
+radius = 8.0
+height = 39.57
+
+[node name="Boar" type="RigidBody2D" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 4
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_rkytx")
+death = ExtResource("2_scr4u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_3u5g0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(-1, 1)
+sprite_frames = ExtResource("2_f7022")
+animation = &"death"
+autoplay = "default"
+
+[node name="HurtBox" parent="." instance=ExtResource("4_8h464")]
+collision_layer = 4
+hurt_stats = ExtResource("5_2roal")
+
+[connection signal="on_death" from="HurtBox" to="." method="_on_death"]
+[connection signal="on_hit" from="HurtBox" to="." method="_on_hit"]
+[connection signal="on_knockback" from="HurtBox" to="." method="_on_knockback"]

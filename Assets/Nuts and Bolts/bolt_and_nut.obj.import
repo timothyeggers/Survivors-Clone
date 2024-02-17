@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b03fx06xfu1r1"
+path="res://.godot/imported/bolt_and_nut.obj-585e00f67b0fdaabba748b12adb435ed.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bolt_and_nut.obj-585e00f67b0fdaabba748b12adb435ed.mesh"]
+
+source_file="res://Assets/Nuts and Bolts/bolt_and_nut.obj"
+dest_files=["res://.godot/imported/bolt_and_nut.obj-585e00f67b0fdaabba748b12adb435ed.mesh", "res://.godot/imported/bolt_and_nut.obj-585e00f67b0fdaabba748b12adb435ed.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
