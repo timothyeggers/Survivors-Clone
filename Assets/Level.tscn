@@ -1,20 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://htaexmdbull"]
+[gd_scene load_steps=11 format=3 uid="uid://htaexmdbull"]
 
 [ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="1_0uk7x"]
-[ext_resource type="Texture2D" uid="uid://bv25tx6cj5u0x" path="res://Assets/Icons/Skull.png" id="2_if52e"]
-[ext_resource type="Script" path="res://Assets/UI/EnemyKillsLabel.gd" id="3_6a3y6"]
+[ext_resource type="PackedScene" uid="uid://cjieug6rjg22w" path="res://Assets/UI/KillCounter.tscn" id="2_vbuag"]
+[ext_resource type="PackedScene" uid="uid://dr8jl3ngxpjif" path="res://Assets/UI/LevelProgressBar.tscn" id="3_dktmg"]
 [ext_resource type="PackedScene" uid="uid://cw5hd42n2jeex" path="res://Assets/Entities/Warrior/Warrior.tscn" id="4_3tu0t"]
-[ext_resource type="Texture2D" uid="uid://80da10eag7tc" path="res://Assets/ProgressBar/Under.png" id="4_jbu4u"]
-[ext_resource type="Texture2D" uid="uid://bvon2fc4rolwh" path="res://Assets/ProgressBar/Progress.png" id="5_0p46m"]
 [ext_resource type="PackedScene" uid="uid://dp0kxdhy1b8f3" path="res://Assets/NatureBolt/NatureBolt.tscn" id="5_m1b8i"]
-[ext_resource type="Script" path="res://Assets/UI/EXPProgressBar.gd" id="6_6be5t"]
 [ext_resource type="Script" path="res://Assets/Spawner/SpawnAlternator.gd" id="6_lp61s"]
 [ext_resource type="PackedScene" uid="uid://u0p1y380oky7" path="res://Assets/Spawner/Spawner.tscn" id="7_rg2bn"]
 [ext_resource type="PackedScene" uid="uid://bltib2icqlg5m" path="res://Assets/Entities/Boar/Boar.tscn" id="8_frpir"]
 [ext_resource type="PackedScene" uid="uid://d3ltbofcng4k5" path="res://Assets/Entities/Bomber/Bomber.tscn" id="9_roxbg"]
 [ext_resource type="PackedScene" uid="uid://cfljohcqk62wb" path="res://Assets/EXP/EXP.tscn" id="10_bqks4"]
 
-[node name="Level" type="Node2D" groups=["Level"]]
+[node name="World" type="Node2D" groups=["World"]]
 y_sort_enabled = true
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -26,12 +23,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Top" type="Control" parent="UI/Anchor"]
-anchors_preset = 0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 50.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Items" type="HFlowContainer" parent="UI/Anchor/Top"]
 layout_mode = 1
@@ -47,66 +48,11 @@ grow_horizontal = 2
 layout_mode = 2
 texture = ExtResource("1_0uk7x")
 
-[node name="Kill Count Container" type="HBoxContainer" parent="UI/Anchor/Top"]
+[node name="Kill Count Container" parent="UI/Anchor/Top" instance=ExtResource("2_vbuag")]
 layout_mode = 0
-offset_left = 10.0
-offset_right = 55.0
-offset_bottom = 25.0
 
-[node name="Icon" type="TextureRect" parent="UI/Anchor/Top/Kill Count Container"]
-layout_mode = 2
-texture = ExtResource("2_if52e")
-expand_mode = 3
-
-[node name="Count" type="Label" parent="UI/Anchor/Top/Kill Count Container"]
-layout_mode = 2
-text = "0
-"
-script = ExtResource("3_6a3y6")
-
-[node name="Bottom" type="Control" parent="UI/Anchor"]
+[node name="Level Progress Bar" parent="UI/Anchor" instance=ExtResource("3_dktmg")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -10.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/Anchor/Bottom"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -324.0
-offset_top = -31.0
-offset_right = 324.0
-offset_bottom = 49.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(1, 0.5)
-texture_under = ExtResource("4_jbu4u")
-texture_progress = ExtResource("5_0p46m")
-tint_over = Color(1, 0.243137, 1, 1)
-script = ExtResource("6_6be5t")
-
-[node name="Label" type="Label" parent="UI/Anchor/Bottom"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -47.0
-offset_top = -23.0
-offset_right = 47.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "EXPERIENCE
-"
 
 [node name="Character" parent="." instance=ExtResource("4_3tu0t")]
 position = Vector2(577, 324)
@@ -132,18 +78,100 @@ wait_time = 0.2
 autostart = true
 
 [node name="EXP" parent="." instance=ExtResource("10_bqks4")]
-position = Vector2(440, 212)
-
-[node name="EXP4" parent="." instance=ExtResource("10_bqks4")]
-position = Vector2(557, 131)
-value = 20
-
-[node name="EXP5" parent="." instance=ExtResource("10_bqks4")]
-position = Vector2(492, 114)
-value = 30
+position = Vector2(575, 245)
 
 [node name="EXP2" parent="." instance=ExtResource("10_bqks4")]
-position = Vector2(529, 188)
+position = Vector2(575, 198)
 
 [node name="EXP3" parent="." instance=ExtResource("10_bqks4")]
-position = Vector2(454, 147)
+position = Vector2(574, 149)
+
+[node name="EXP4" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(574, 106)
+
+[node name="EXP5" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(573, 61)
+
+[node name="EXP6" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(591, 245)
+
+[node name="EXP7" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(591, 198)
+
+[node name="EXP8" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(590, 149)
+
+[node name="EXP9" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(590, 106)
+
+[node name="EXP10" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(589, 61)
+
+[node name="EXP11" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(589, 61)
+
+[node name="EXP12" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(572, 22)
+
+[node name="EXP13" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(572, -25)
+
+[node name="EXP14" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(571, -74)
+
+[node name="EXP15" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(571, -117)
+
+[node name="EXP16" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(570, -162)
+
+[node name="EXP17" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(588, 22)
+
+[node name="EXP18" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(588, -25)
+
+[node name="EXP19" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(587, -74)
+
+[node name="EXP20" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(587, -117)
+
+[node name="EXP21" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(586, -162)
+
+[node name="EXP22" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(586, -162)
+
+[node name="EXP23" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(569, -208)
+
+[node name="EXP24" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(569, -255)
+
+[node name="EXP25" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(568, -304)
+
+[node name="EXP26" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(568, -347)
+
+[node name="EXP27" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(567, -392)
+
+[node name="EXP28" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(585, -208)
+
+[node name="EXP29" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(585, -255)
+
+[node name="EXP30" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(584, -304)
+
+[node name="EXP31" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(584, -347)
+
+[node name="EXP32" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(583, -392)
+
+[node name="EXP33" parent="." instance=ExtResource("10_bqks4")]
+position = Vector2(583, -392)

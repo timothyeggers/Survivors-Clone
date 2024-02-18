@@ -32,5 +32,5 @@ func spawn():
 		y += player_position.y
 		
 		temp.global_position = Vector2(x,y)
-		Game.get_level().add_child(temp)
+		Game.get_world().add_child(temp)
 		Game.emit_signal("enemy_spawned", temp)

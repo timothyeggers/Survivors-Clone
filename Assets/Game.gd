@@ -2,37 +2,64 @@ extends Node
 
 signal enemy_spawned(node)
 signal exp_gained(amount)
+signal level_up(level)
 
-const knockback_duration = 0.2
+const base_experience = 100
+const growth_factor = 1.5
 
-const screen_width = 1152
-const screen_height = 648
+var screen_width = 1152
+var screen_height = 648
+
+var knockback_duration = 0.2
 
 var max_enemies = 20
-var experience = 0.0 : set = _add_experience, get = _get_experience
+var experience: get = get_experience
 
 var _player: Node2D
+var _level = 1
+var _exp: float = get_experience_required(_level)
 
+func _process(delta):
+	if Input.is_action_pressed("ui_accept"):
+		add_experience(10)
 
 func _ready():
 	var player = Node2D.new()
 	player.add_to_group("Player Empty")
 	player.name = "Player Empty"
 	
-	var level = Node2D.new()
-	level.add_to_group("Level Empty")
-	level.name = "Level Empty"
+	var world = Node2D.new()
+	world.add_to_group("World Empty")
+	world.name = "World Empty"
 	
 	var root = get_tree().root.get_child(0)
-	root.add_child(level)
-	level.add_child(player)
+	root.add_child(world)
+	world.add_child(player)
 
-func _add_experience(value):
-	experience += value
-	emit_signal("exp_gained", value)
+func add_experience(value):
+	_exp += value
 	
-func _get_experience():
-	return experience
+	while _exp >= get_experience_required(_level + 1):
+		_level += 1
+		emit_signal("level_up", get_level())
+		print( "Experience: " + str(_exp) + " Level: " + str(_level) ) 
+	
+	emit_signal("exp_gained", value)
+
+func get_experience_required(level: int):
+	return base_experience * (growth_factor ** (level - 1))
+
+func get_experience():
+	return _exp
+
+func get_level():
+	return _level
+
+func get_level_ratio():
+	var level_up_diff = get_experience_required(_level + 1) - get_experience_required(_level)
+	var level_diff = get_experience_required(_level + 1) - _exp
+	var ratio = 1 - (level_diff / level_up_diff)
+	return ratio
 
 func look_at():
 	return get_viewport().get_camera_2d().get_global_mouse_position()
@@ -63,12 +90,12 @@ func get_direction_to_player(from: Node2D):
 func get_distance_to_player(from: Node2D):
 	return from.global_position.distance_to(get_player().global_position)
 
-func get_level() -> Node2D:
-	var level = get_tree().get_first_node_in_group("Level")
-	if level:
-		return level
+func get_world() -> Node2D:
+	var world = get_tree().get_first_node_in_group("World")
+	if world:
+		return world
 	
-	var temp = get_tree().get_first_node_in_group("Level Empty")
+	var temp = get_tree().get_first_node_in_group("World Empty")
 	return temp
 
 func can_spawn_more() -> bool:

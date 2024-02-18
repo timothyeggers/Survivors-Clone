@@ -5,6 +5,8 @@ extends Area2D
 @onready var sprite = $Sprite2D
 
 func _ready():
+	sprite.texture = $Sprite2D/TwoBolts.get_texture()
+	return
 	if value <= 10:
 		sprite.texture = $Sprite2D/Screw.get_texture()
 	elif value <= 20:
@@ -15,5 +17,5 @@ func _ready():
 func _on_body_entered(body):
 	if not body.is_in_group("Player"):
 		return
-	Game.experience += value
+	Game.add_experience(value)
 	queue_free()

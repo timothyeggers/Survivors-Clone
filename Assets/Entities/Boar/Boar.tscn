@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://ohc5dwp5asux" path="res://Assets/Entities/Boar/Boar.tres" id="2_f7022"]
 [ext_resource type="Resource" uid="uid://cefaexokhyadh" path="res://Assets/Entities/Boar/Die/OnBoarDeath.tres" id="2_scr4u"]
 [ext_resource type="PackedScene" uid="uid://b0n5vt2twjyg" path="res://Assets/HurtBox/HurtBox.tscn" id="4_8h464"]
-[ext_resource type="Resource" uid="uid://q37oo7seq5x4" path="res://Assets/Entities/Boar/BoarStats.tres" id="5_2roal"]
+[ext_resource type="Resource" uid="uid://q37oo7seq5x4" path="res://Assets/Entities/Boar/BoarHurtStats.tres" id="5_xs46p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3u5g0"]
 radius = 8.0
@@ -30,7 +30,7 @@ autoplay = "default"
 
 [node name="HurtBox" parent="." instance=ExtResource("4_8h464")]
 collision_layer = 4
-hurt_stats = ExtResource("5_2roal")
+hurt_stats = ExtResource("5_xs46p")
 
 [node name="Trail" type="CPUParticles2D" parent="."]
 z_index = -1

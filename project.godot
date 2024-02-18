@@ -18,8 +18,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://Assets/Game.gd"
-UI="*res://Assets/UI/UI.gd"
 Audio="*res://Assets/AudioStreamPlayer.gd"
+UI="*res://Assets/UI/UI.gd"
 
 [display]
 

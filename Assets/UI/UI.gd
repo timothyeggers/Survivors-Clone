@@ -8,7 +8,7 @@ func create_number(at: Vector2, label, color):
 	number.color = color
 	number.global_position = at
 	
-	Game.get_level().add_child(number)
+	Game.get_world().add_child(number)
 	
 	var tween = create_tween()
 	tween.tween_property(number, "position", at + Vector2.UP * 30, 1)

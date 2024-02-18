@@ -15,7 +15,8 @@ var _move_speed = move_speed
 var _charge_dt = null
 var _fixed_direction = null
 
-@onready var sprite = $AnimatedSprite2D
+@onready var _sprite = $AnimatedSprite2D
+@onready var _trail = $Trail
 
 func _in_charge_run() -> bool:
 	return _fixed_direction != null
@@ -31,10 +32,6 @@ func _process(delta):
 		_charge_dt -= delta
 		var amount = 1 * delta
 		if not _in_charge_run():
-			scale.x += amount
-			scale.y += amount
-			self_modulate
-		else:
 			scale.x += amount
 			scale.y += amount
 
@@ -60,34 +57,34 @@ func _physics_process(delta):
 		direction = _fixed_direction
 	
 	if direction.x > 0: 
-		sprite.flip_h = false
+		_sprite.flip_h = false
 	elif direction.x < 0:
-		sprite.flip_h = true
+		_sprite.flip_h = true
 		
 	move_and_collide(direction * _move_speed * delta)
 
 
 func _on_hit(area):
-	sprite.play("hit")
-	sprite.self_modulate = Color(1, 0, 0)
-	await sprite.animation_finished
-	sprite.play("default")
-	sprite.self_modulate = Color.WHITE
+	_sprite.play("hit")
+	_sprite.self_modulate = Color(1, 0, 0)
+	await _sprite.animation_finished
+	_sprite.play("default")
+	_sprite.self_modulate = Color.WHITE
 	
 
 func _on_charge():
 	_fixed_direction = Game.get_direction_to_player(self)
 	_move_speed = move_speed * 5
 	_charge_dt = charge_run_time
-	$Trail.emitting = true
+	_trail.emitting = true
 
 
 func _on_charge_end():
-	print("No")
 	_move_speed = move_speed
 	_fixed_direction = null
 	_charge_dt = null
-	$Trail.emitting = false
+	_trail.emitting = false
+	scale = Vector2.ONE
 
 
 func _on_knockback(strength):
@@ -100,8 +97,8 @@ func _on_stun(duration):
 
 func _on_stun_timeout():
 	return
-	sprite.play("default")
-	sprite.self_modulate  = Color(1,1,1)
+	_sprite.play("default")
+	_sprite.self_modulate  = Color(1,1,1)
 
 func _on_death(area):
 	if death:
