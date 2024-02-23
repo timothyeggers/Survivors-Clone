@@ -21,7 +21,6 @@ var _fixed_direction = null
 func _in_charge_run() -> bool:
 	return _fixed_direction != null
 
-
 func _ready():
 	on_charge.connect(_on_charge)
 	on_charge_end.connect(_on_charge_end)
@@ -60,7 +59,7 @@ func _physics_process(delta):
 		_sprite.flip_h = false
 	elif direction.x < 0:
 		_sprite.flip_h = true
-		
+	
 	move_and_collide(direction * _move_speed * delta)
 
 

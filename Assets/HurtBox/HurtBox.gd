@@ -17,13 +17,16 @@ signal on_death(area)
 @onready var _can_knockback = true
 
 
+func set_health(amount):
+	_health = amount
+
 func _ready():
 	area_entered.connect(_on_hit)
 	stun_timer.timeout.connect(_on_stun_timeout)
 	knockback_cd_timer.timeout.connect(_on_knockback_cd_timer)
 
 func _on_hit(area):
-	print(get_parent().name + " was hit from: " + area.get_parent().name)
+	#print(get_parent().name + " was hit from: " + area.get_parent().name)
 	Audio.play(sound_effect)
 	emit_signal("on_hit", area)
 	
@@ -32,9 +35,7 @@ func _on_hit(area):
 	
 		if hit.damage:
 			var ratio: float = hit.damage / hurt_stats.health
-			var color = Game.color_ratio(hit.damage / hurt_stats.health)
-			
-			UI.create_number(global_position, hit.damage, color)
+			UI.create_number(global_position, hit.damage)
 			
 			_health -= hit.damage
 			if _health <= 0:

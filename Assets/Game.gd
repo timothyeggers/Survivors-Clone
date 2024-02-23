@@ -10,18 +10,22 @@ const growth_factor = 1.5
 var screen_width = 1152
 var screen_height = 648
 
-var knockback_duration = 0.2
-
-var max_enemies = 20
 var experience: get = get_experience
 
 var _player: Node2D
 var _level = 1
 var _exp: float = get_experience_required(_level)
+var _elapsed_time = 0.0
 
 func _process(delta):
 	if Input.is_action_pressed("ui_accept"):
 		add_experience(10)
+	if Input.is_action_just_pressed("ui_accept"):
+		var es = get_tree().get_nodes_in_group("Enemy")
+		for e in es:
+			e.queue_free()
+	
+	_elapsed_time += delta
 
 func _ready():
 	var player = Node2D.new()
@@ -35,6 +39,9 @@ func _ready():
 	var root = get_tree().root.get_child(0)
 	root.add_child(world)
 	world.add_child(player)
+
+func get_time_elapsed():
+	return _elapsed_time
 
 func add_experience(value):
 	_exp += value
@@ -64,16 +71,6 @@ func get_level_ratio():
 func look_at():
 	return get_viewport().get_camera_2d().get_global_mouse_position()
 
-func color_ratio(percent: float) -> Color:
-	return Color.WHITE
-	if percent < 0.45:
-		return Color.WHITE
-	if percent < 0.55:
-		return Color.ORANGE
-	if percent < 0.8:
-		return Color.ORANGE_RED
-	return Color.RED
-
 func get_player() -> Node2D:
 	if _player and _player.is_inside_tree(): return _player
 	
@@ -99,4 +96,4 @@ func get_world() -> Node2D:
 	return temp
 
 func can_spawn_more() -> bool:
-	return get_tree().get_nodes_in_group("Enemy").size() < max_enemies
+	return Difficulty.can_spawn_more()

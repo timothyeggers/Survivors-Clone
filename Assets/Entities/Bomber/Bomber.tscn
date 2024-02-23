@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3ltbofcng4k5"]
+[gd_scene load_steps=11 format=3 uid="uid://d3ltbofcng4k5"]
 
 [ext_resource type="Script" path="res://Assets/Entities/Bomber/Bomber.gd" id="1_nu5qp"]
 [ext_resource type="Texture2D" uid="uid://cgnmog71ktdpx" path="res://Assets/Entities/Bomber/Bomb.png" id="1_si5td"]
@@ -7,29 +7,82 @@
 [ext_resource type="Resource" uid="uid://biechqfotscdr" path="res://Assets/Entities/Bomber/BomberHurtStats.tres" id="4_mm70m"]
 [ext_resource type="Resource" uid="uid://bdw8gl6vubyql" path="res://Assets/Generic SFX/BombDeath.tres" id="6_iqqlp"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3u5g0"]
-radius = 8.0
-height = 39.57
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywxvy"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_kyhh6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jqfcv"]
+resource_name = "detonate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ovhl"]
+_data = {
+"RESET": SubResource("Animation_kyhh6"),
+"detonate": SubResource("Animation_jqfcv")
+}
 
 [node name="Bomber" type="RigidBody2D" groups=["Enemy"]]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_nu5qp")
 death = ExtResource("2_sagf1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_3u5g0")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 2)
-scale = Vector2(-1, 1)
+y_sort_enabled = true
+position = Vector2(-3, -4)
 texture = ExtResource("1_si5td")
+flip_h = true
 
 [node name="HurtBox" parent="." instance=ExtResource("2_h8dap")]
 collision_layer = 4
 hurt_stats = ExtResource("4_mm70m")
 sound_effect = ExtResource("6_iqqlp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ywxvy")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4ovhl")
+}
 
 [connection signal="on_death" from="HurtBox" to="." method="_on_death"]

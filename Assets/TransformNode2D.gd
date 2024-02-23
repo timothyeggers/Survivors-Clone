@@ -9,7 +9,11 @@ signal on_transform_to(to)
 @export var inherit_scale = Vector2.ONE
 @export var target: PackedScene
 
-func transform(from, to=target.instantiate(), attach_to: Node2D = Game.get_world()):
+func transform(from, attach_to: Node2D = Game.get_world()):
+	if target == null:
+		return
+	
+	var to = target.instantiate()
 	
 	if inherit_position:
 		to.global_position = from.global_position

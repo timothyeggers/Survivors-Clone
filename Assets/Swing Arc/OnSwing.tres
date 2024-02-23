@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="TransformNode2D" load_steps=3 format=3 uid="uid://8gp0dkkpsa8n"]
 
 [ext_resource type="Script" path="res://Assets/TransformNode2D.gd" id="1_tq6q7"]
-[ext_resource type="PackedScene" uid="uid://bem18swgao5d2" path="res://Assets/Swing Arc/SwingAnimation.tscn" id="2_wtgsm"]
+[ext_resource type="PackedScene" uid="uid://bem18swgao5d2" path="res://Assets/Swing Arc/SwingAnimation.tscn" id="2_sprua"]
 
 [resource]
 script = ExtResource("1_tq6q7")
 inherit_position = true
 inherit_rotation = true
 inherit_scale = Vector2(1, 1)
-target = ExtResource("2_wtgsm")
+target = ExtResource("2_sprua")

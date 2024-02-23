@@ -85,7 +85,6 @@ script = ExtResource("6_lp61s")
 
 [node name="Spawner (Boar)" parent="SpawnAlternator" instance=ExtResource("7_rg2bn")]
 node = ExtResource("8_frpir")
-spawn_count_min = 50
 spawn_axis = "XY"
 
 [node name="Spawner (Bomb)" parent="SpawnAlternator" instance=ExtResource("7_rg2bn")]

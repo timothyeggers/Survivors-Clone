@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 Game="*res://Assets/Game.gd"
 Audio="*res://Assets/AudioStreamPlayer.gd"
 UI="*res://Assets/UI/UI.gd"
+Difficulty="*res://Difficulty.gd"
 
 [display]
 

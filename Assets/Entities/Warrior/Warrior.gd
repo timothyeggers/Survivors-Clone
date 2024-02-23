@@ -48,7 +48,10 @@ func _physics_process(delta):
 
 func _on_attack_timeout():
 	#var combo = false if _swings_left % 2 == 0 else true
-	print("Trigger " + str(_swings_left))
+	#print("Trigger " + str(_swings_left))
+	if _swings_left <= 0:
+		return
+	
 	_swings_left -= 1
 	
 	hit_box.trigger()
@@ -80,4 +83,5 @@ func _on_death(area):
 
 
 func _on_hurt_box_on_hit(area):
-	print("Was hit")
+	pass
+	#print("Was hit")
