@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bltib2icqlg5m"]
+
+[ext_resource type="Script" path="res://Assets/Boar/Boar.gd" id="1_rkytx"]
+[ext_resource type="Script" path="res://Assets/AI_Actor.gd" id="1_y4xjy"]
+[ext_resource type="Texture2D" uid="uid://drvofiav2e5d8" path="res://Assets/Boar/Attack/Attack - Color 1.png" id="2_qjbjx"]
+
+[node name="Boar" type="Node2D" node_paths=PackedStringArray("actor", "sprite")]
+script = ExtResource("1_rkytx")
+actor = NodePath("Actor")
+sprite = NodePath("Boar")
+speed = 16
+
+[node name="Actor" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+script = ExtResource("1_y4xjy")
+
+[node name="Boar" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("2_qjbjx")
+flip_h = true
+hframes = 6

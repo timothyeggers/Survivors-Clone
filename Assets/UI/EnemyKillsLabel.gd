@@ -6,7 +6,9 @@ func _ready():
 	Game.enemy_spawned.connect(_add_hook_to_enemy_death)
 
 func _add_hook_to_enemy_death(node):
-	node.get_node("HurtBox").connect("on_death", _update_ui)
+	var health_node = node.get_node("HurtBox")
+	if health_node:
+		health_node.connect("on_death", _update_ui)
 
 func _update_ui(area):
 	n_killed += 1 

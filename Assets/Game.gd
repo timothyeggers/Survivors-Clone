@@ -12,19 +12,14 @@ var screen_height = 648
 
 var experience: get = get_experience
 
+var difficulty = Difficulty.new()
+
 var _player: Node2D
 var _level = 1
 var _exp: float = get_experience_required(_level)
 var _elapsed_time = 0.0
 
 func _process(delta):
-	if Input.is_action_pressed("ui_accept"):
-		add_experience(10)
-	if Input.is_action_just_pressed("ui_accept"):
-		var es = get_tree().get_nodes_in_group("Enemy")
-		for e in es:
-			e.queue_free()
-	
 	_elapsed_time += delta
 
 func _ready():
@@ -96,4 +91,8 @@ func get_world() -> Node2D:
 	return temp
 
 func can_spawn_more() -> bool:
-	return Difficulty.can_spawn_more()
+	return difficulty.can_spawn_more()
+
+
+func get_enemy_count():
+	return get_tree().get_nodes_in_group("Enemy").size()

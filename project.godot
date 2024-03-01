@@ -13,18 +13,21 @@ config_version=5
 config/name="Survivors Clone"
 run/main_scene="res://Assets/Level.tscn"
 config/features=PackedStringArray("4.2")
-config/icon="res://icon.png"
 
 [autoload]
 
 Game="*res://Assets/Game.gd"
 Audio="*res://Assets/AudioStreamPlayer.gd"
 UI="*res://Assets/UI/UI.gd"
-Difficulty="*res://Difficulty.gd"
+AI="*res://Assets/AI_System.gd"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [gui]
 
@@ -66,7 +69,11 @@ noclip={
 
 [physics]
 
+2d/physics_engine="GodotPhysics2D"
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
 2d/default_linear_damp=1.0
+2d/solver/solver_iterations=4
 common/enable_pause_aware_picking=true
 
 [rendering]
