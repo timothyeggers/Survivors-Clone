@@ -1,6 +1,6 @@
 class_name Difficulty extends Node
 
-var max_enemies = 500
+var max_enemies = 300
 var _cached_enemy_count = 0
 
 func can_spawn_more():

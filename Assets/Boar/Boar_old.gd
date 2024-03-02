@@ -43,10 +43,8 @@ func _charge_process(delta):
 			emit_signal("on_charge_end")
 	# check if we should charge
 	else:
-		if _check_ray_to_player():
+		if Game.get_distance_to_player(self) > charge_distance:
 			return
-		#if Game.get_distance_to_player(self) > charge_distance:
-		#	return
 		
 		var rand = randf_range(0, 1)
 		if rand <= chance_to_charge:

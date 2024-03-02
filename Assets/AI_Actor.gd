@@ -1,14 +1,17 @@
 class_name AI_Actor extends Area2D
 
 @export var avoid_force = 5.0
-@export var avoid_radius = 24
+@export var avoid_radius = 20
 
 var _c_avoid_force := Vector2.ZERO
 var _shape: Shape2D
 var _shape_rid: RID
 var _params: PhysicsShapeQueryParameters2D
-
+var _disabled = false
 var _visible_notifier: VisibleOnScreenNotifier2D
+
+func set_disabled(value: bool):
+	_disabled = value
 
 func is_on_screen() -> bool:
 	return _visible_notifier.is_on_screen()
@@ -40,6 +43,8 @@ func _ready():
 
 
 func update_avoidance():
+	if _disabled: return
+	
 	# updates the query parameters to reflect where it is in area space
 	_params.transform.origin = global_transform.origin
 	
@@ -57,4 +62,3 @@ func update_avoidance():
 			var force = 1.0 / direction.length()
 			_c_avoid_force += direction * force
 
-	

@@ -4,6 +4,7 @@ signal enemy_spawned(node)
 signal exp_gained(amount)
 signal level_up(level)
 
+const DEFAULT_WALK_SPEED = 64
 const base_experience = 100
 const growth_factor = 1.5
 

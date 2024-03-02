@@ -1,6 +1,6 @@
 extends Node2D
 
-func _process(delta):
+func _physics_process(delta):
 	var x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	var mod = 4 if  Input.is_action_pressed("noclip") else 1

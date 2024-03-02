@@ -4,11 +4,9 @@
 [ext_resource type="Script" path="res://Assets/AI_Actor.gd" id="1_y4xjy"]
 [ext_resource type="Texture2D" uid="uid://drvofiav2e5d8" path="res://Assets/Boar/Attack/Attack - Color 1.png" id="2_qjbjx"]
 
-[node name="Boar" type="Node2D" node_paths=PackedStringArray("actor", "sprite")]
+[node name="Boar" type="Node2D" node_paths=PackedStringArray("actor")]
 script = ExtResource("1_rkytx")
 actor = NodePath("Actor")
-sprite = NodePath("Boar")
-speed = 16
 
 [node name="Actor" type="Area2D" parent="."]
 collision_layer = 4
@@ -16,8 +14,18 @@ collision_mask = 4
 monitoring = false
 script = ExtResource("1_y4xjy")
 
-[node name="Boar" type="Sprite2D" parent="."]
+[node name="Health" type="Node" parent="."]
+
+[node name="Trail" type="CPUParticles2D" parent="."]
+z_index = -5
+position = Vector2(0, -7)
+emitting = false
+amount = 16
+emission_shape = 1
+emission_sphere_radius = 6.95
+gravity = Vector2(0, 0)
+scale_amount_max = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
 texture = ExtResource("2_qjbjx")
-flip_h = true
-hframes = 6
