@@ -6,3 +6,7 @@ func _physics_process(delta):
 	var mod = 4 if  Input.is_action_pressed("noclip") else 1
 	
 	position += Vector2(x, y).normalized() * 64 * delta * mod
+
+
+func _on_hurt_box_on_hit(area):
+	print("HOW")

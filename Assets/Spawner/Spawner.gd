@@ -3,26 +3,22 @@ extends Node2D
 
 @export var node: PackedScene
 
-@export_range(1, 100, 1, "or_greater")  var spawn_count_min = 1
-@export_range(1, 100, 1, "or_greater")  var spawn_count_max = 5
-@export_range(1, 10, 1, "or_greater") var spawn_spread = 5
+@export_range(1, 100, 1, "or_greater")  var min_amount = 1
+@export_range(1, 100, 1, "or_greater")  var max_amount = 5
+@export_range(1, 10, 1, "or_greater") var spread = 5
 
-@export_enum("X", "Y", "XY") var spawn_axis = "XY"
+@export_enum("X", "Y", "XY") var axis = "XY"
 
-func spawn():
-	if not node or not visible:
-		return
-	
-	var half_height = Game.screen_height / 2
-	var half_width = Game.screen_width / 2
+
+func spawn_axis():
+	var half_height = Game.SCREEN_HEIGHT / 2
+	var half_width = Game.SCREEN_WIDTH / 2
 	
 	var player_position = Game.get_player().global_position
+	var spawn_count = randi_range(min_amount, max_amount)
+	var axis = axis
 	
-	var spawn_count = randi_range(spawn_count_min, spawn_count_max)
-	
-	var axis = spawn_axis
-	
-	if spawn_axis == "XY":
+	if axis == "XY":
 		axis = "Y" if randf() > 0.5 else "X"
 	
 	for i in spawn_count:
@@ -37,11 +33,11 @@ func spawn():
 		
 		if axis == "X": 
 			x = randf_range(-half_width, half_width)
-			y *= randf_range(1.5, spawn_spread)
+			y *= randf_range(1.5, spread)
 		
 		if axis == "Y": 
 			y = randf_range(-half_height, half_height)
-			x *= randf_range(1.5, spawn_spread)
+			x *= randf_range(1.5, spread)
 		
 		#  offset so it's around player
 		y += player_position.y
@@ -49,6 +45,19 @@ func spawn():
 		
 		temp.global_position = Vector2(x,y)
 		Game.get_world().add_child(temp)
-		Game.emit_signal("enemy_spawned", temp)
+
+
+func spawn_circle(position: Vector2, radius: float = spread):	
+	var spawn_count = randi_range(min_amount, max_amount)
 	
+	for i in spawn_count:
+		var temp = node.instantiate()
+		
+		# set to min screen height and width
+		var x =  position.x + randf_range(-radius, radius)
+		var y =  position.y + randf_range(-radius, radius)
+		
+		temp.global_position = Vector2(x,y)
+		Game.get_world().add_child(temp)
+		Game.emit_signal("enemy_spawned", temp)
 

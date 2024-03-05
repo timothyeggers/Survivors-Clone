@@ -2,15 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="1_0uk7x"]
 [ext_resource type="PackedScene" uid="uid://cjieug6rjg22w" path="res://Assets/UI/KillCounter.tscn" id="2_vbuag"]
-[ext_resource type="PackedScene" uid="uid://dr8jl3ngxpjif" path="res://Assets/UI/LevelProgressBar.tscn" id="3_dktmg"]
+[ext_resource type="PackedScene" uid="uid://dr8jl3ngxpjif" path="res://Assets/ProgressBar/LevelProgressBar.tscn" id="3_dktmg"]
 [ext_resource type="Script" path="res://Assets/UI/FPS.gd" id="3_s81ie"]
 [ext_resource type="Script" path="res://Assets/UI/Enemy Count.gd" id="4_5qqpe"]
-[ext_resource type="PackedScene" uid="uid://dp0kxdhy1b8f3" path="res://Assets/NatureBolt/NatureBolt.tscn" id="5_m1b8i"]
 [ext_resource type="Script" path="res://Assets/MOVE.gd" id="7_20rbj"]
 [ext_resource type="Script" path="res://Assets/Spawner/SpawnAlternator.gd" id="7_78our"]
 [ext_resource type="Texture2D" uid="uid://cgnmog71ktdpx" path="res://Assets/Bomber/Bomb.png" id="8_36rxn"]
 [ext_resource type="PackedScene" uid="uid://bltib2icqlg5m" path="res://Assets/Boar/Boar.tscn" id="8_frpir"]
 [ext_resource type="Script" path="res://Assets/Spawner/Spawner.gd" id="8_vcalu"]
+[ext_resource type="PackedScene" uid="uid://b4otv32c77o6a" path="res://Assets/Boar/BoarKing.tscn" id="13_jsq1s"]
 
 [node name="World" type="Node2D" groups=["World"]]
 y_sort_enabled = true
@@ -86,9 +86,6 @@ layout_mode = 0
 [node name="Level Progress Bar" parent="UI/Anchor" instance=ExtResource("3_dktmg")]
 layout_mode = 1
 
-[node name="NatureBolt" parent="." instance=ExtResource("5_m1b8i")]
-position = Vector2(-202, -39)
-
 [node name="Player" type="Node2D" parent="." groups=["Player"]]
 position = Vector2(576, 324)
 script = ExtResource("7_20rbj")
@@ -106,9 +103,12 @@ timer = NodePath("Timer")
 [node name="Spawner" type="Node2D" parent="SpawnAlternator"]
 script = ExtResource("8_vcalu")
 node = ExtResource("8_frpir")
-spawn_count_min = 25
-spawn_count_max = 50
+min_amount = 25
+max_amount = 50
 
 [node name="Timer" type="Timer" parent="SpawnAlternator"]
 wait_time = 0.2
 autostart = true
+
+[node name="Boar King" parent="." instance=ExtResource("13_jsq1s")]
+position = Vector2(128, 106)

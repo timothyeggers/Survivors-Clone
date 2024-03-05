@@ -16,7 +16,7 @@ func _on_timeout():
 	if Game.can_spawn_more():
 		if _index < _spawners.size():
 			var spawner = _spawners[_index] as Spawner
-			spawner.spawn()
+			spawner.spawn_axis()
 			_index += 1
 		else:
 			_index = 0

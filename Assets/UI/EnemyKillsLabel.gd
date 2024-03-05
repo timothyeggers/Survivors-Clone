@@ -3,13 +3,13 @@ extends Label
 var n_killed = 0
 
 func _ready():
-	Game.enemy_spawned.connect(_add_hook_to_enemy_death)
+	var enems = get_tree().get_nodes_in_group("Enemy")
+	for e in enems:
+		_add_hook_to_enemy_death(e)
 
 func _add_hook_to_enemy_death(node):
-	var health_node = node.get_node("HurtBox")
-	if health_node:
-		health_node.connect("on_death", _update_ui)
+	node.tree_exiting.connect(_update_ui)
 
-func _update_ui(area):
+func _update_ui():
 	n_killed += 1 
 	text = str(n_killed)

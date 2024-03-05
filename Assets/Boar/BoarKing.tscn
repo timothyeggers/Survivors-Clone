@@ -1,0 +1,108 @@
+[gd_scene load_steps=18 format=3 uid="uid://b4otv32c77o6a"]
+
+[ext_resource type="PackedScene" uid="uid://d1ghftmjdh26w" path="res://Assets/Components/AI/AIComponent.tscn" id="1_qvvif"]
+[ext_resource type="Script" path="res://Assets/Components/VelocityComponent.gd" id="2_m14to"]
+[ext_resource type="Script" path="res://Assets/Components/HealthComponent.gd" id="3_rqcs2"]
+[ext_resource type="PackedScene" uid="uid://bva02m7e07bce" path="res://Assets/HurtAndHitBox.tscn" id="3_y6oo4"]
+[ext_resource type="Script" path="res://Assets/Components/HitComponent.gd" id="5_5rvx3"]
+[ext_resource type="Script" path="res://Assets/HitStats.gd" id="6_f1whq"]
+[ext_resource type="Animation" uid="uid://cxj6lmx8tjpmf" path="res://Assets/Boar/Art/ChargeAnim.res" id="7_nnlxn"]
+[ext_resource type="SpriteFrames" uid="uid://d2lp8x010471b" path="res://Assets/Boar/Art/BoarKingAnimations.tres" id="7_rd48q"]
+[ext_resource type="Animation" uid="uid://daxykmx7aq5wg" path="res://Assets/Boar/Art/ChargeEnd.res" id="9_4rq6h"]
+[ext_resource type="Script" path="res://Assets/Boar/States/BoarWalkState.gd" id="9_57oyo"]
+[ext_resource type="Script" path="res://Assets/Components/StateMachine/StateMachine.gd" id="10_207qx"]
+[ext_resource type="Animation" uid="uid://co8my682vt6xs" path="res://Assets/Boar/Art/ChargeRelease.res" id="10_hjabf"]
+[ext_resource type="Script" path="res://Assets/Boar/States/BoarChargeState.gd" id="10_l3fvq"]
+[ext_resource type="Script" path="res://Assets/Boar/States/BoarChargeCooldown.gd" id="11_ib7ba"]
+[ext_resource type="Script" path="res://Assets/Boar/States/BoarChargeReleaseState.gd" id="12_am4ah"]
+
+[sub_resource type="Resource" id="Resource_skdwt"]
+script = ExtResource("6_f1whq")
+damage = 4
+knockback = 6
+stun = 0.1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oin7o"]
+_data = {
+"ChargeEnd": ExtResource("9_4rq6h"),
+"ChargePrepBoar": ExtResource("7_nnlxn"),
+"ChargeRelease": ExtResource("10_hjabf")
+}
+
+[node name="Boar King" type="Node2D" groups=["Boar", "Elite", "Enemy"]]
+scale = Vector2(1.5, 1.5)
+
+[node name="AIComponent" parent="." instance=ExtResource("1_qvvif")]
+
+[node name="VelocityComponent" type="Node2D" parent="."]
+script = ExtResource("2_m14to")
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+script = ExtResource("3_rqcs2")
+box = NodePath("../HurtAndHitBox")
+
+[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+script = ExtResource("5_5rvx3")
+stats = SubResource("Resource_skdwt")
+box = NodePath("../HurtAndHitBox")
+
+[node name="HurtAndHitBox" parent="." instance=ExtResource("3_y6oo4")]
+
+[node name="ChargeTrail" type="CPUParticles2D" parent="."]
+z_index = -5
+position = Vector2(0, -7)
+emitting = false
+amount = 16
+emission_shape = 1
+emission_sphere_radius = 6.95
+gravity = Vector2(0, 0)
+scale_amount_max = 5.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+sprite_frames = ExtResource("7_rd48q")
+animation = &"ChargeEnd"
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oin7o")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("10_207qx")
+default_state = NodePath("BoarWalkState")
+
+[node name="BoarWalkState" type="Node" parent="StateMachine" node_paths=PackedStringArray("ai", "velocity", "root", "sprite")]
+script = ExtResource("9_57oyo")
+charge_range = 200
+ai = NodePath("../../AIComponent")
+velocity = NodePath("../../VelocityComponent")
+root = NodePath("../..")
+sprite = NodePath("../../Sprite")
+animation_name = "Walk"
+
+[node name="BoarChargePrepState" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
+script = ExtResource("10_l3fvq")
+velocity = NodePath("../../VelocityComponent")
+root = NodePath("../..")
+sprite = NodePath("../../Sprite")
+player = NodePath("../../AnimationPlayer")
+animation_name = "ChargePrep"
+
+[node name="BoarChargeReleaseState" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
+script = ExtResource("12_am4ah")
+velocity = NodePath("../../VelocityComponent")
+charge_distance = 225.0
+root = NodePath("../..")
+sprite = NodePath("../../Sprite")
+player = NodePath("../../AnimationPlayer")
+animation_name = "ChargeRelease"
+
+[node name="BoarChargeCooldown" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
+script = ExtResource("11_ib7ba")
+velocity = NodePath("../../VelocityComponent")
+root = NodePath("../..")
+sprite = NodePath("../../Sprite")
+player = NodePath("../../AnimationPlayer")
+animation_name = "ChargeEnd"

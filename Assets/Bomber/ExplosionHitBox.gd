@@ -1,9 +1,11 @@
-extends HitBox
+extends Area2D
 
 
 func _ready():
-	visible = false
+	$AnimationPlayer.play("explode")
+	$AnimationPlayer.animation_finished(name).connect(explode)
 
 func explode():
-	visible = true
-	trigger()
+	var areas = get_overlapping_areas()
+	for area in areas:
+		area.emit_signal("area_entered", self)

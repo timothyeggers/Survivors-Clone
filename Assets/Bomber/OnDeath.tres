@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TransformNode2D" load_steps=3 format=3 uid="uid://ofmjwema6a2n"]
+
+[ext_resource type="Script" path="res://Assets/TransformNode2D.gd" id="1_ci1pw"]
+[ext_resource type="PackedScene" uid="uid://lvrx7bvqtv62" path="res://Assets/Bomber/Explosion.tscn" id="2_03m4k"]
+
+[resource]
+script = ExtResource("1_ci1pw")
+inherit_position = true
+inherit_rotation = true
+inherit_scale = Vector2(1, 1)
+target = ExtResource("2_03m4k")

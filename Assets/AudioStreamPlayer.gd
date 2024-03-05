@@ -26,6 +26,8 @@ func _on_stream_finished(stream):
 
 
 func play(sound: SoundEffect):
+	if sound == null: return
+	
 	var count = 0
 	for s in queue:
 		if s.stream == sound.stream:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjieug6rjg22w"]
 
-[ext_resource type="Texture2D" uid="uid://bv25tx6cj5u0x" path="res://Assets/Icons/Skull.png" id="1_cdt8n"]
+[ext_resource type="Texture2D" uid="uid://bv25tx6cj5u0x" path="res://Assets/UI/Icons/Skull.png" id="1_cdt8n"]
 [ext_resource type="Script" path="res://Assets/UI/EnemyKillsLabel.gd" id="2_a1ngh"]
 
 [node name="Kill Count Container" type="HBoxContainer"]

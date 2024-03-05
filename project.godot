@@ -19,7 +19,7 @@ config/features=PackedStringArray("4.2")
 Game="*res://Assets/Game.gd"
 Audio="*res://Assets/AudioStreamPlayer.gd"
 UI="*res://Assets/UI/UI.gd"
-AI="*res://Assets/AI_System.gd"
+AI="*res://Assets/Components/AI/AIComponentManager.gd"
 
 [display]
 
@@ -66,6 +66,9 @@ noclip={
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemy"
+2d_physics/layer_10="avoidance"
+2d_physics/layer_11="avoidance"
+2d_physics/layer_12="avoidance"
 
 [physics]
 

@@ -7,7 +7,7 @@ func can_spawn_more():
 	var enemies = Game.get_tree().get_nodes_in_group("Enemy")
 	var in_range = []
 	for i in enemies.size():
-		if Game.get_distance_to_player(enemies[i]) > Game.screen_width * 1.5:
+		if Game.get_distance_to_player(enemies[i]) > Game.SCREEN_WIDTH * 5:
 			enemies[i].queue_free()
 		else:
 			in_range.append(enemies[i])

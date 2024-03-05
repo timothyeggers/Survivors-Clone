@@ -1,10 +1,11 @@
 extends Node2D
 
-var damage_number = preload("res://Assets/UI/DamageNumber/DamageNumber.tscn")
+var damage_number = preload("res://Assets/DamageNumber/DamageNumber.tscn")
 
 func create_number(at: Vector2, label):
+	return
 	var number = damage_number.instantiate() as DamageNumber
-	number.label = str(label)
+	number.label = str(label) 
 	number.global_position = at
 	
 	Game.get_world().add_child(number)

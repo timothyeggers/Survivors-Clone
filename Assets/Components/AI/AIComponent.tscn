@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1ghftmjdh26w"]
+
+[ext_resource type="Script" path="res://Assets/Components/AI/AIComponent.gd" id="1_xfcta"]
+
+[node name="AIComponent" type="Area2D"]
+collision_layer = 512
+collision_mask = 512
+monitoring = false
+script = ExtResource("1_xfcta")

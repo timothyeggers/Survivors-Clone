@@ -1,6 +1,5 @@
 extends Node
 
-signal enemy_spawned(node)
 signal exp_gained(amount)
 signal level_up(level)
 
@@ -8,8 +7,8 @@ const DEFAULT_WALK_SPEED = 64
 const base_experience = 100
 const growth_factor = 1.5
 
-var screen_width = 1152
-var screen_height = 648
+const SCREEN_WIDTH = 1152
+const SCREEN_HEIGHT = 648
 
 var experience: get = get_experience
 

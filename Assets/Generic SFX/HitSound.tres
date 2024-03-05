@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_hsh51")
 stream = ExtResource("2_xyaqh")
-max_concurrent = 3
+max_concurrent = 2
 cascade_sound = false
 pitch_min = 0.8
-pitch_max = 1.0
+pitch_max = 0.7
