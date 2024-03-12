@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bltib2icqlg5m"]
+[gd_scene load_steps=17 format=3 uid="uid://bltib2icqlg5m"]
 
 [ext_resource type="PackedScene" uid="uid://d1ghftmjdh26w" path="res://Assets/Components/AI/AIComponent.tscn" id="2_egceo"]
 [ext_resource type="Script" path="res://Assets/Components/VelocityComponent.gd" id="2_f2hdm"]
@@ -14,7 +14,6 @@
 [ext_resource type="Animation" uid="uid://co8my682vt6xs" path="res://Assets/Boar/Art/ChargeRelease.res" id="10_ediy2"]
 [ext_resource type="Script" path="res://Assets/Boar/States/BoarChargeState.gd" id="11_f3rck"]
 [ext_resource type="Script" path="res://Assets/Boar/States/BoarChargeReleaseState.gd" id="12_w5vpm"]
-[ext_resource type="Script" path="res://Assets/Boar/States/BoarChargeCooldown.gd" id="13_8se2c"]
 
 [sub_resource type="Resource" id="Resource_skdwt"]
 script = ExtResource("5_rty20")
@@ -60,8 +59,7 @@ scale_amount_max = 5.0
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
 sprite_frames = ExtResource("9_tsu24")
-animation = &"ChargeEnd"
-frame_progress = 1.0
+animation = &"Death"
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -75,12 +73,11 @@ default_state = NodePath("BoarWalkState")
 
 [node name="BoarWalkState" type="Node" parent="StateMachine" node_paths=PackedStringArray("ai", "velocity", "root", "sprite")]
 script = ExtResource("10_bdb3n")
-charge_range = 200
 ai = NodePath("../../AIComponent")
 velocity = NodePath("../../VelocityComponent")
 root = NodePath("../..")
 sprite = NodePath("../../Sprite")
-animation_name = "Walk"
+start_animation = "Walk"
 
 [node name="BoarChargePrepState" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
 script = ExtResource("11_f3rck")
@@ -88,20 +85,13 @@ velocity = NodePath("../../VelocityComponent")
 root = NodePath("../..")
 sprite = NodePath("../../Sprite")
 player = NodePath("../../AnimationPlayer")
-animation_name = "ChargePrep"
+start_animation = "ChargePrep"
 
 [node name="BoarChargeReleaseState" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
 script = ExtResource("12_w5vpm")
 velocity = NodePath("../../VelocityComponent")
-charge_distance = 225.0
 root = NodePath("../..")
 sprite = NodePath("../../Sprite")
 player = NodePath("../../AnimationPlayer")
-animation_name = "ChargeRelease"
-
-[node name="BoarChargeCooldown" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite")]
-script = ExtResource("13_8se2c")
-velocity = NodePath("../../VelocityComponent")
-root = NodePath("../..")
-sprite = NodePath("../../Sprite")
-animation_name = "ChargeEnd"
+start_animation = "ChargeRelease"
+exit_animation = "ChargeEnd"

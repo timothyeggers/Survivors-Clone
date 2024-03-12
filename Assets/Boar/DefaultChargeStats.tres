@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ChargeStats" load_steps=2 format=3 uid="uid://c4hcpa488mgkf"]
+
+[ext_resource type="Script" path="res://Assets/Boar/ChargeStats.gd" id="1_d57si"]
+
+[resource]
+script = ExtResource("1_d57si")

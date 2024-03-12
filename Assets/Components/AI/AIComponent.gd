@@ -4,31 +4,32 @@ AIComponent supplies a suggestion on where to move with a magnitude, based on
 the goal of avoiding other AIComponent's
 """
 
-@export var avoid_force = 5.0
+# MAX_COLLS directly determines the accuracy in which avoidance occurs when there's multiple AI's overlapping.
+const MAX_COLLS = 32
+
+## Size to check avoidance overlap.  Area2D collision mask is used for checking avoidance.
 @export var avoid_radius = 20.0
+## Priority forces avoidance navigation every phys frame at the expense of performance.
+@export var high_priority = false
 
 var _c_avoid_force := Vector2.ZERO
 var _shape: Shape2D
 var _shape_rid: RID
 var _params: PhysicsShapeQueryParameters2D
 var _disabled = false
-var _visible_notifier: VisibleOnScreenNotifier2D
 
 func set_disabled(value: bool):
 	_disabled = value
 
-func is_on_screen() -> bool:
-	return _visible_notifier.is_on_screen()
+func get_avoidance_direction() -> Vector2:
+	return _c_avoid_force.normalized()
 
 func get_avoidance_force() -> Vector2:
+	"""Uncapped, and magnitude is determined by number of overlaps."""
 	return _c_avoid_force
 
 func _ready():
-	AI.add_ai(self)
-	
-	# for checking screen status
-	_visible_notifier = VisibleOnScreenNotifier2D.new()
-	add_child(_visible_notifier)
+	AI.add_ai(self, high_priority)
 	
 	# create collision shape
 	_shape = CircleShape2D.new()
@@ -53,7 +54,7 @@ func update_avoidance():
 	_params.transform.origin = global_transform.origin
 	
 	# checks if the shapes intersect
-	var hits = get_world_2d().direct_space_state.intersect_shape(_params, 5)
+	var hits = get_world_2d().direct_space_state.intersect_shape(_params, MAX_COLLS)
 	
 	_c_avoid_force = Vector2.ZERO
 	

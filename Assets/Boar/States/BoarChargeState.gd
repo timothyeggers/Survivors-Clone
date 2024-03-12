@@ -1,6 +1,6 @@
 class_name BoarChargePrepState extends EntityState
 
-const PREP_TIME = 0.4
+const PREP_TIME = 0.3
 
 @export var velocity: VelocityComponent
 
@@ -9,7 +9,7 @@ var _prep_dt = 0.0
 func enter():
 	super.enter()
 	_prep_dt = PREP_TIME
-	velocity.set_velocity(Vector2.ZERO)
+	#velocity.set_velocity(Vector2.ZERO)
 
 func process(delta):
 	# flip the character

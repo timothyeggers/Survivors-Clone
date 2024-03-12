@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://htaexmdbull"]
+[gd_scene load_steps=16 format=3 uid="uid://htaexmdbull"]
 
 [ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="1_0uk7x"]
 [ext_resource type="PackedScene" uid="uid://cjieug6rjg22w" path="res://Assets/UI/KillCounter.tscn" id="2_vbuag"]
@@ -7,9 +7,13 @@
 [ext_resource type="Script" path="res://Assets/UI/Enemy Count.gd" id="4_5qqpe"]
 [ext_resource type="Script" path="res://Assets/MOVE.gd" id="7_20rbj"]
 [ext_resource type="Script" path="res://Assets/Spawner/SpawnAlternator.gd" id="7_78our"]
+[ext_resource type="Script" path="res://Assets/Components/AI/AIComponent.gd" id="8_2xmfu"]
 [ext_resource type="Texture2D" uid="uid://cgnmog71ktdpx" path="res://Assets/Bomber/Bomb.png" id="8_36rxn"]
 [ext_resource type="PackedScene" uid="uid://bltib2icqlg5m" path="res://Assets/Boar/Boar.tscn" id="8_frpir"]
 [ext_resource type="Script" path="res://Assets/Spawner/Spawner.gd" id="8_vcalu"]
+[ext_resource type="Script" path="res://Assets/Components/VelocityComponent.gd" id="9_f50ri"]
+[ext_resource type="Script" path="res://Assets/Components/StateMachine/StateMachine.gd" id="9_q03hk"]
+[ext_resource type="Script" path="res://Assets/Components/StateMachine/EntityWalkState.gd" id="10_yxs7x"]
 [ext_resource type="PackedScene" uid="uid://b4otv32c77o6a" path="res://Assets/Boar/BoarKing.tscn" id="13_jsq1s"]
 
 [node name="World" type="Node2D" groups=["World"]]
@@ -86,15 +90,42 @@ layout_mode = 0
 [node name="Level Progress Bar" parent="UI/Anchor" instance=ExtResource("3_dktmg")]
 layout_mode = 1
 
-[node name="Player" type="Node2D" parent="." groups=["Player"]]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("area") groups=["Player"]]
 position = Vector2(576, 324)
 script = ExtResource("7_20rbj")
+area = NodePath("ExplodeArea")
+
+[node name="ExplodeArea" type="Area2D" parent="Player"]
+position = Vector2(-576, -324)
+collision_layer = 512
+collision_mask = 512
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("8_36rxn")
+
+[node name="AIComponent" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 512
+monitoring = false
+script = ExtResource("8_2xmfu")
+avoid_radius = 128.0
+high_priority = true
+metadata/_edit_group_ = true
+
+[node name="VelocityComponent" type="Node2D" parent="Player"]
+script = ExtResource("9_f50ri")
+
+[node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("default_state")]
+script = ExtResource("9_q03hk")
+default_state = NodePath("EntityWalkState")
+
+[node name="EntityWalkState" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("velocity", "root")]
+script = ExtResource("10_yxs7x")
+velocity = NodePath("../../VelocityComponent")
+root = NodePath("../..")
 
 [node name="SpawnAlternator" type="Node" parent="." node_paths=PackedStringArray("timer")]
 script = ExtResource("7_78our")
@@ -112,3 +143,5 @@ autostart = true
 
 [node name="Boar King" parent="." instance=ExtResource("13_jsq1s")]
 position = Vector2(128, 106)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]

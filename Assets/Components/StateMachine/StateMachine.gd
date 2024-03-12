@@ -6,8 +6,9 @@ var current_state: State
 var states: Dictionary = {}
 
 func _ready():
-	current_state = default_state
-	current_state.enter()
+	if default_state:
+		current_state = default_state
+		current_state.enter()
 	
 	for child in get_children():
 		if child is State:
