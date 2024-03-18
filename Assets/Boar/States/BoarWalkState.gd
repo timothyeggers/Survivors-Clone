@@ -4,6 +4,9 @@ class_name BoarWalkState extends EntityWalkState
 
 var _charge_cd = 0.0
 
+func _ready():
+	move_speed = Boar.MOVE_SPEED
+
 func enter():
 	super.enter()
 	_charge_cd = stats.cooldown

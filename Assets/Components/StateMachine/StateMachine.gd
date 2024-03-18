@@ -36,3 +36,14 @@ func _on_child_transition(state, new_state):
 	
 	new.enter()
 	current_state = new
+
+func transition(new_state):
+	var new = states.get(new_state.to_lower())
+	if !new:
+		return
+	
+	if current_state:
+		current_state.exit()
+	
+	new.enter()
+	current_state = new

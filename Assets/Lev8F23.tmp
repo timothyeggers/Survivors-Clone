@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://htaexmdbull"]
+[gd_scene load_steps=16 format=3 uid="uid://htaexmdbull"]
 
 [ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="1_0uk7x"]
 [ext_resource type="PackedScene" uid="uid://cjieug6rjg22w" path="res://Assets/UI/KillCounter.tscn" id="2_vbuag"]
@@ -12,7 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bltib2icqlg5m" path="res://Assets/Boar/Boar.tscn" id="8_frpir"]
 [ext_resource type="Script" path="res://Assets/Spawner/Spawner.gd" id="8_vcalu"]
 [ext_resource type="Script" path="res://Assets/Components/VelocityComponent.gd" id="9_f50ri"]
-[ext_resource type="PackedScene" uid="uid://b4otv32c77o6a" path="res://Assets/Boar/BoarKing.tscn" id="10_bme5q"]
+[ext_resource type="Script" path="res://Assets/Components/StateMachine/StateMachine.gd" id="9_q03hk"]
+[ext_resource type="Script" path="res://Assets/Components/StateMachine/EntityWalkState.gd" id="10_yxs7x"]
+[ext_resource type="PackedScene" uid="uid://b4otv32c77o6a" path="res://Assets/Boar/BoarKing.tscn" id="13_jsq1s"]
 
 [node name="World" type="Node2D" groups=["World"]]
 y_sort_enabled = true
@@ -116,7 +118,14 @@ metadata/_edit_group_ = true
 [node name="VelocityComponent" type="Node2D" parent="Player"]
 script = ExtResource("9_f50ri")
 
-[node name="Boar King" parent="." instance=ExtResource("10_bme5q")]
+[node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("default_state")]
+script = ExtResource("9_q03hk")
+default_state = NodePath("EntityWalkState")
+
+[node name="EntityWalkState" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("velocity", "root")]
+script = ExtResource("10_yxs7x")
+velocity = NodePath("../../VelocityComponent")
+root = NodePath("../..")
 
 [node name="SpawnAlternator" type="Node" parent="." node_paths=PackedStringArray("timer")]
 process_mode = 4
@@ -132,3 +141,6 @@ max_amount = 50
 [node name="Timer" type="Timer" parent="SpawnAlternator"]
 wait_time = 0.2
 autostart = true
+
+[node name="Boar King" parent="." instance=ExtResource("13_jsq1s")]
+position = Vector2(128, 106)

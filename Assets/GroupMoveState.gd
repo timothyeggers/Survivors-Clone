@@ -1,4 +1,4 @@
-class_name EntityWalkState extends EntityState
+class_name GroupMoveState extends EntityState
 
 @export var ai: AIComponent
 @export var velocity: VelocityComponent
@@ -12,9 +12,3 @@ func physics_process(delta):
 	# Finalize move_force this frame, and update entity position.
 	velocity.add_velocity(move_force * delta)
 	root.global_position += velocity.get_velocity() * delta
-	
-	# flip character
-	if move_dir.x > 0:
-		root.scale.x = abs(root.scale.x)
-	elif move_dir.x < 0:
-		root.scale.x = abs(root.scale.x) * -1

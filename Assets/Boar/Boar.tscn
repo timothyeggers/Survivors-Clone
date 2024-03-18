@@ -57,7 +57,7 @@ gravity = Vector2(0, 0)
 scale_amount_max = 5.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -32)
+position = Vector2(0, -24)
 sprite_frames = ExtResource("9_tsu24")
 animation = &"Death"
 flip_h = true
@@ -71,27 +71,20 @@ libraries = {
 script = ExtResource("9_em3ym")
 default_state = NodePath("BoarWalkState")
 
-[node name="BoarWalkState" type="Node" parent="StateMachine" node_paths=PackedStringArray("ai", "velocity", "root", "sprite")]
+[node name="BoarWalkState" type="Node" parent="StateMachine" node_paths=PackedStringArray("ai", "velocity", "root", "sprite", "player")]
 script = ExtResource("10_bdb3n")
 ai = NodePath("../../AIComponent")
 velocity = NodePath("../../VelocityComponent")
 root = NodePath("../..")
 sprite = NodePath("../../Sprite")
+player = NodePath("../../AnimationPlayer")
 start_animation = "Walk"
 
-[node name="BoarChargePrepState" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
+[node name="BoarChargePrepState" type="Node" parent="StateMachine"]
 script = ExtResource("11_f3rck")
-velocity = NodePath("../../VelocityComponent")
-root = NodePath("../..")
-sprite = NodePath("../../Sprite")
-player = NodePath("../../AnimationPlayer")
 start_animation = "ChargePrep"
 
-[node name="BoarChargeReleaseState" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity", "root", "sprite", "player")]
+[node name="BoarChargeReleaseState" type="Node" parent="StateMachine"]
 script = ExtResource("12_w5vpm")
-velocity = NodePath("../../VelocityComponent")
-root = NodePath("../..")
-sprite = NodePath("../../Sprite")
-player = NodePath("../../AnimationPlayer")
 start_animation = "ChargeRelease"
 exit_animation = "ChargeEnd"
