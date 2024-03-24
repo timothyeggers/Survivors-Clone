@@ -20,14 +20,27 @@ func _ready():
 	if box:
 		box.area_entered.connect(_on_hurt)
 
-func take_damage(amount):
-	_health -= amount
-	emit_signal("on_hurt", amount)
+func take_damage(hit: HitStats):
+	emit_signal("on_hurt", hit.damage)
+	
+	var total_damage = hit.damage
+	var groups = get_parent().get_groups()
+	
+	match hit.type:
+		HitStats.DamageType.MELEE:
+			if "Water" in groups:
+				total_damage = 0
+			if "Metal" in groups:
+				total_damage = 0
+	
+	# finalize damage
+	_health -= total_damage
+	UI.create_number(box.global_position,total_damage)
 	
 	if _health <= 0:
 		emit_signal("on_death")
 	
-	if hurt_sfx and _health > 0:
+	if hurt_sfx and _health > 0: 
 		Audio.play(hurt_sfx)
 	if death_sfx and _health <= 0:
 		Audio.play(death_sfx)
@@ -35,7 +48,8 @@ func take_damage(amount):
 func _on_hurt(area: Area2D):
 	var hit: HitComponent = area.get_parent().get_node("HitComponent")
 	if hit and hit.box != box:
-		take_damage(hit.stats.damage)
-		UI.create_number(box.global_position, hit.stats.damage)
+		take_damage(hit.stats)
+		(hit as HitComponent).hit_registered.emit(area)
+		
 
 

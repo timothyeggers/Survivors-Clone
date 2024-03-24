@@ -1,7 +1,9 @@
 class_name VelocityComponent extends Node2D
 
+const DRAG_COEFFICIENT = 0.003
+
 @export var mass = 10.0
-@export var fric = 0.5
+@export var drag = 1.0
 
 var _linear_velocity := Vector2.ZERO
 var _time_since_change = 0.0
@@ -28,12 +30,11 @@ func get_velocity():
 func get_speed():
 	return _linear_velocity.length()
 
-func get_friction(vel):
-	return fric * pow(vel.length(), 2)
-
 func _process(delta):
 	_time_since_change += delta
 
 func _physics_process(delta):
-	print(str(get_speed()) + "  " + str( get_speed() - (get_friction(_linear_velocity) * delta))+ "  " + str( get_friction(_linear_velocity) * delta ) )
-	
+	#print(str(get_speed()) + "  " + str( get_speed() - (get_friction(_linear_velocity) * delta))+ "  " + str( get_friction(_linear_velocity) * delta ) )
+	if drag > 0.0:
+		var drag_force = drag * DRAG_COEFFICIENT * pow(get_speed(), 2) * mass
+		_linear_velocity += drag_force * -get_direction() * delta

@@ -1,18 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://htaexmdbull"]
+[gd_scene load_steps=19 format=3 uid="uid://htaexmdbull"]
 
 [ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="1_0uk7x"]
+[ext_resource type="PackedScene" uid="uid://cmyrjvahlbyx0" path="res://Assets/AreaSelect.tscn" id="1_hmx6v"]
 [ext_resource type="PackedScene" uid="uid://cjieug6rjg22w" path="res://Assets/UI/KillCounter.tscn" id="2_vbuag"]
 [ext_resource type="PackedScene" uid="uid://dr8jl3ngxpjif" path="res://Assets/ProgressBar/LevelProgressBar.tscn" id="3_dktmg"]
 [ext_resource type="Script" path="res://Assets/UI/FPS.gd" id="3_s81ie"]
 [ext_resource type="Script" path="res://Assets/UI/Enemy Count.gd" id="4_5qqpe"]
 [ext_resource type="Script" path="res://Assets/MOVE.gd" id="7_20rbj"]
 [ext_resource type="Script" path="res://Assets/Spawner/SpawnAlternator.gd" id="7_78our"]
-[ext_resource type="Script" path="res://Assets/Components/AI/AIComponent.gd" id="8_2xmfu"]
 [ext_resource type="Texture2D" uid="uid://cgnmog71ktdpx" path="res://Assets/Bomber/Bomb.png" id="8_36rxn"]
 [ext_resource type="PackedScene" uid="uid://bltib2icqlg5m" path="res://Assets/Boar/Boar.tscn" id="8_frpir"]
 [ext_resource type="Script" path="res://Assets/Spawner/Spawner.gd" id="8_vcalu"]
-[ext_resource type="Script" path="res://Assets/Components/VelocityComponent.gd" id="9_f50ri"]
 [ext_resource type="PackedScene" uid="uid://b4otv32c77o6a" path="res://Assets/Boar/BoarKing.tscn" id="10_bme5q"]
+[ext_resource type="PackedScene" uid="uid://bym03v43uv500" path="res://Assets/Chest.tscn" id="15_cty2s"]
+[ext_resource type="Script" path="res://InventoryItem.gd" id="16_du7r7"]
+[ext_resource type="PackedScene" uid="uid://b5xnpvusb6fhx" path="res://Assets/ThrowingSword.tscn" id="17_y58hx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7chft"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lasrr"]
+bg_color = Color(0.411765, 0.52549, 1, 0.380392)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.247059, 0.247059, 0.247059, 1)
+corner_detail = 1
+
+[sub_resource type="Resource" id="Resource_ocbr7"]
+script = ExtResource("16_du7r7")
+name = "Throwing Sword"
+icon = ExtResource("8_36rxn")
+item = ExtResource("17_y58hx")
 
 [node name="World" type="Node2D" groups=["World"]]
 y_sort_enabled = true
@@ -88,10 +107,30 @@ layout_mode = 0
 [node name="Level Progress Bar" parent="UI/Anchor" instance=ExtResource("3_dktmg")]
 layout_mode = 1
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("area") groups=["Player"]]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("area", "selector") groups=["Player"]]
 position = Vector2(576, 324)
 script = ExtResource("7_20rbj")
 area = NodePath("ExplodeArea")
+selector = NodePath("Area Select")
+property_options = ["DefaultState", "MetalState", "WaterState"]
+
+[node name="Collider" type="Area2D" parent="Player"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Collider"]
+shape = SubResource("CircleShape2D_7chft")
+
+[node name="Area Select" parent="Player" node_paths=PackedStringArray("ui") instance=ExtResource("1_hmx6v")]
+position = Vector2(-576, -324)
+ui = NodePath("../Cursor Select")
+
+[node name="Cursor Select" type="Panel" parent="Player"]
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lasrr")
 
 [node name="ExplodeArea" type="Area2D" parent="Player"]
 position = Vector2(-576, -324)
@@ -104,22 +143,9 @@ position = Vector2(-1, 1)
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("8_36rxn")
 
-[node name="AIComponent" type="Area2D" parent="Player"]
-collision_layer = 0
-collision_mask = 512
-monitoring = false
-script = ExtResource("8_2xmfu")
-avoid_radius = 128.0
-high_priority = true
-metadata/_edit_group_ = true
-
-[node name="VelocityComponent" type="Node2D" parent="Player"]
-script = ExtResource("9_f50ri")
-
 [node name="Boar King" parent="." instance=ExtResource("10_bme5q")]
 
 [node name="SpawnAlternator" type="Node" parent="." node_paths=PackedStringArray("timer")]
-process_mode = 4
 script = ExtResource("7_78our")
 timer = NodePath("Timer")
 
@@ -132,3 +158,12 @@ max_amount = 50
 [node name="Timer" type="Timer" parent="SpawnAlternator"]
 wait_time = 0.2
 autostart = true
+
+[node name="Boar" parent="." instance=ExtResource("8_frpir")]
+position = Vector2(200, 98)
+
+[node name="Chest" parent="." instance=ExtResource("15_cty2s")]
+position = Vector2(434, 288)
+items = Array[ExtResource("16_du7r7")]([SubResource("Resource_ocbr7")])
+
+[node name="Node" type="Node" parent="."]

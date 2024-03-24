@@ -1,4 +1,4 @@
-class_name AIComponentManager extends Node
+class_name AIManager extends Node
 """
 AIComponentManager processes all registered AIComponent, updating a fixed amount per frame
 in order to increase performance.
@@ -10,6 +10,7 @@ var _ai_s: Array[AIComponent] = []
 var _ai_s_priority: Array[AIComponent] = []
 
 var _update_index = 0
+
 
 func add_ai(ai : AIComponent, high_priority := false):
 	if high_priority:

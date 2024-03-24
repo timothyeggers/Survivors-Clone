@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmyrjvahlbyx0"]
+
+[ext_resource type="Script" path="res://Assets/CursorSelect.gd" id="1_rlssg"]
+
+[node name="Area Select" type="Area2D" node_paths=PackedStringArray("ui")]
+collision_layer = 0
+collision_mask = 3584
+script = ExtResource("1_rlssg")
+ui = NodePath("")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

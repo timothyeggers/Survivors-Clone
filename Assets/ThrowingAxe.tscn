@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2mq3otxipp56"]
+
+[ext_resource type="Script" path="res://Assets/ProjectileComponent.gd" id="1_dkdlb"]
+[ext_resource type="Script" path="res://Assets/Components/HitComponent.gd" id="1_kam6f"]
+[ext_resource type="Script" path="res://Assets/HitStats.gd" id="2_nv4ra"]
+[ext_resource type="SpriteFrames" uid="uid://cr7xs4iv6l84o" path="res://Assets/weapons.tres" id="4_3howb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rljdl"]
+radius = 13.0384
+
+[sub_resource type="Resource" id="Resource_d5m1b"]
+script = ExtResource("2_nv4ra")
+damage = 4
+knockback = 6
+stun = 0.1
+piereces = 0
+type = 0
+
+[node name="Throwing Axe" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9, -4)
+shape = SubResource("CircleShape2D_rljdl")
+
+[node name="ProjectileComponent" type="Node" parent="."]
+script = ExtResource("1_dkdlb")
+
+[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+script = ExtResource("1_kam6f")
+stats = SubResource("Resource_d5m1b")
+box = NodePath("../Area2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, -1)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("4_3howb")
+animation = &"axe"
+flip_h = true

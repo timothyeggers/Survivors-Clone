@@ -16,7 +16,7 @@ void fragment() {
 	COLOR.rgb = vec3(metal);
 	
 	// apply shine
-	if (distance(UV.x, COLOR.x) < 0.1) { 
-		COLOR.rgb = vec3(mix(metal, 1.0, 0.5));
+	if (distance(UV.x, COLOR.x) < 0.1) {
+		COLOR.rgb = vec3(mix(COLOR.rgb, vec3(1.0), 0.5));
 	}
 }

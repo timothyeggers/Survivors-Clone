@@ -6,7 +6,7 @@
 position = Vector2(0, -21.3333)
 scale = Vector2(1.56864, 1.61333)
 collision_layer = 4
-collision_mask = 4
+collision_mask = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2wvsi")

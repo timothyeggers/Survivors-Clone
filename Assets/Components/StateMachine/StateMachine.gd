@@ -26,7 +26,7 @@ func _physics_process(delta):
 func _on_child_transition(state, new_state):
 	if state != current_state:
 		return
-	
+	 
 	var new = states.get(new_state.to_lower())
 	if !new:
 		return
