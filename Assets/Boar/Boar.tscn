@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bltib2icqlg5m"]
+[gd_scene load_steps=24 format=3 uid="uid://bltib2icqlg5m"]
 
 [ext_resource type="Script" path="res://Assets/Entity.gd" id="1_rwjtr"]
 [ext_resource type="PackedScene" uid="uid://d1ghftmjdh26w" path="res://Assets/Components/AI/AIComponent.tscn" id="2_egceo"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://Assets/Components/States/MetalState.gd" id="13_g31yb"]
 [ext_resource type="Script" path="res://DefaultState.gd" id="15_1qa7i"]
 [ext_resource type="Script" path="res://WaterState.gd" id="16_psfaf"]
+[ext_resource type="Script" path="res://Assets/Boar/DeathState.gd" id="21_2osis"]
 
 [sub_resource type="Resource" id="Resource_skdwt"]
 script = ExtResource("5_rty20")
@@ -44,14 +45,13 @@ script = ExtResource("1_rwjtr")
 [node name="VelocityComponent" type="Node2D" parent="."]
 script = ExtResource("2_f2hdm")
 
-[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("3_t7isi")
-box = NodePath("../HurtAndHitBox")
+hurtbox = NodePath("../HurtAndHitBox")
 
-[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+[node name="HitComponent" type="Node" parent="."]
 script = ExtResource("4_o07bm")
 stats = SubResource("Resource_skdwt")
-box = NodePath("../HurtAndHitBox")
 
 [node name="HighlightComponent" type="Node" parent="." node_paths=PackedStringArray("material")]
 script = ExtResource("6_0btn0")
@@ -76,7 +76,7 @@ scale_amount_max = 5.0
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("9_tsu24")
-animation = &"Death"
+animation = &"ChargeEnd"
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -85,6 +85,7 @@ libraries = {
 }
 
 [node name="PropertyStateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+process_mode = 4
 script = ExtResource("9_em3ym")
 default_state = NodePath("DefaultState")
 
@@ -132,3 +133,9 @@ sprite = NodePath("../../Sprite")
 player = NodePath("../../AnimationPlayer")
 start_animation = "ChargeRelease"
 exit_animation = "ChargeEnd"
+
+[node name="DeathState" type="Node" parent="StateMachine" node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("21_2osis")
+health = NodePath("../../HealthComponent")
+sprite = NodePath("../../Sprite")
+start_animation = "Death"

@@ -30,10 +30,9 @@ shape = SubResource("CircleShape2D_rljdl")
 [node name="ProjectileComponent" type="Node" parent="."]
 script = ExtResource("1_dkdlb")
 
-[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+[node name="HitComponent" type="Node" parent="."]
 script = ExtResource("1_kam6f")
 stats = SubResource("Resource_d5m1b")
-box = NodePath("../Area2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, -1)

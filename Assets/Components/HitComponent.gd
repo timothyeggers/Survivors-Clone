@@ -7,7 +7,7 @@ signal hit(area)
 signal hit_registered(area)
 
 @export var stats: HitStats
-@export var box: Area2D
+@export var hitbox: Area2D
 
 @onready var _piereces = stats.piereces
 

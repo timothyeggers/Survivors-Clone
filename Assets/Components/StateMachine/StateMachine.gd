@@ -14,6 +14,7 @@ func _ready():
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.transitioned.connect(_on_child_transition)
+			child.force_transitioned.connect(transition)
 
 func _process(delta):
 	if current_state:
@@ -26,7 +27,7 @@ func _physics_process(delta):
 func _on_child_transition(state, new_state):
 	if state != current_state:
 		return
-	 
+	
 	var new = states.get(new_state.to_lower())
 	if !new:
 		return

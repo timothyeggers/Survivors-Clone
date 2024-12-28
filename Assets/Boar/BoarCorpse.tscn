@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0lynr5yst5dr"]
+
+[ext_resource type="SpriteFrames" uid="uid://ohc5dwp5asux" path="res://Assets/Boar/Art/BoarAnimations.tres" id="1_n7x3j"]
+
+[node name="Boar Corpse" type="Node"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("1_n7x3j")
+animation = &"Death"
+frame = 3
+speed_scale = 0.0
+flip_h = true

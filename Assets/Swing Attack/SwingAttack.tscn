@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Assets/Swing Attack/SwingAttack.gd" id="1_n4pxr"]
 [ext_resource type="Texture2D" uid="uid://w8c7djl2boyl" path="res://Assets/Swing Attack/Swing.png" id="2_oghbk"]
-[ext_resource type="Script" path="res://Assets/HurtBox/HurtBox.gd" id="3_ve6ch"]
+[ext_resource type="Script" path="res://Assets/Components/HitComponent.gd" id="3_ve6ch"]
 [ext_resource type="Script" path="res://Assets/HitStats.gd" id="4_2e7kn"]
 
 [sub_resource type="Animation" id="Animation_0lhql"]
@@ -63,11 +63,13 @@ _data = {
 "swing": SubResource("Animation_0lhql")
 }
 
-[sub_resource type="Resource" id="Resource_0ypgc"]
+[sub_resource type="Resource" id="Resource_3pv32"]
 script = ExtResource("4_2e7kn")
 damage = 4
 knockback = 6
 stun = 0.1
+piereces = 0
+type = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ckh50"]
 size = Vector2(64, 112)
@@ -81,11 +83,9 @@ libraries = {
 }
 
 [node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
 z_index = 10
 z_as_relative = false
-position = Vector2(30, 0)
-scale = Vector2(1.072, 1)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_oghbk")
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -93,8 +93,12 @@ collision_layer = 2
 collision_mask = 0
 monitoring = false
 script = ExtResource("3_ve6ch")
-hit_stats = SubResource("Resource_0ypgc")
+stats = SubResource("Resource_3pv32")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(32, 0)
 shape = SubResource("RectangleShape2D_ckh50")

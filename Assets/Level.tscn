@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://htaexmdbull"]
+[gd_scene load_steps=17 format=3 uid="uid://htaexmdbull"]
 
 [ext_resource type="Texture2D" uid="uid://7u4jgirycc24" path="res://Assets/UI/white_particle.png" id="1_0uk7x"]
-[ext_resource type="PackedScene" uid="uid://cmyrjvahlbyx0" path="res://Assets/AreaSelect.tscn" id="1_hmx6v"]
 [ext_resource type="PackedScene" uid="uid://cjieug6rjg22w" path="res://Assets/UI/KillCounter.tscn" id="2_vbuag"]
 [ext_resource type="PackedScene" uid="uid://dr8jl3ngxpjif" path="res://Assets/ProgressBar/LevelProgressBar.tscn" id="3_dktmg"]
 [ext_resource type="Script" path="res://Assets/UI/FPS.gd" id="3_s81ie"]
@@ -17,15 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://b5xnpvusb6fhx" path="res://Assets/ThrowingSword.tscn" id="17_y58hx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7chft"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lasrr"]
-bg_color = Color(0.411765, 0.52549, 1, 0.380392)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.247059, 0.247059, 0.247059, 1)
-corner_detail = 1
 
 [sub_resource type="Resource" id="Resource_ocbr7"]
 script = ExtResource("16_du7r7")
@@ -107,12 +97,9 @@ layout_mode = 0
 [node name="Level Progress Bar" parent="UI/Anchor" instance=ExtResource("3_dktmg")]
 layout_mode = 1
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("area", "selector") groups=["Player"]]
+[node name="Player" type="Node2D" parent="." groups=["Player"]]
 position = Vector2(576, 324)
 script = ExtResource("7_20rbj")
-area = NodePath("ExplodeArea")
-selector = NodePath("Area Select")
-property_options = ["DefaultState", "MetalState", "WaterState"]
 
 [node name="Collider" type="Area2D" parent="Player"]
 collision_layer = 2
@@ -120,22 +107,6 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Collider"]
 shape = SubResource("CircleShape2D_7chft")
-
-[node name="Area Select" parent="Player" node_paths=PackedStringArray("ui") instance=ExtResource("1_hmx6v")]
-position = Vector2(-576, -324)
-ui = NodePath("../Cursor Select")
-
-[node name="Cursor Select" type="Panel" parent="Player"]
-offset_left = -576.0
-offset_top = -324.0
-offset_right = -576.0
-offset_bottom = -324.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_lasrr")
-
-[node name="ExplodeArea" type="Area2D" parent="Player"]
-position = Vector2(-576, -324)
-collision_layer = 512
-collision_mask = 512
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-1, 1)
@@ -152,8 +123,6 @@ timer = NodePath("Timer")
 [node name="Spawner" type="Node2D" parent="SpawnAlternator"]
 script = ExtResource("8_vcalu")
 node = ExtResource("8_frpir")
-min_amount = 25
-max_amount = 50
 
 [node name="Timer" type="Timer" parent="SpawnAlternator"]
 wait_time = 0.2

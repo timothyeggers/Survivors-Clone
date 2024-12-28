@@ -46,14 +46,12 @@ script = ExtResource("1_5g3y2")
 script = ExtResource("2_m14to")
 mass = 5.0
 
-[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+[node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_rqcs2")
-box = NodePath("../HurtAndHitBox")
 
-[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
+[node name="HitComponent" type="Node" parent="."]
 script = ExtResource("5_5rvx3")
 stats = SubResource("Resource_skdwt")
-box = NodePath("../HurtAndHitBox")
 
 [node name="HurtAndHitBox" parent="." instance=ExtResource("3_y6oo4")]
 
