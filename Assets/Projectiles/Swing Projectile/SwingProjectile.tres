@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileSpawnerStats" load_steps=3 format=3 uid="uid://cit460gftgqew"]
+
+[ext_resource type="PackedScene" uid="uid://bem18swgao5d2" path="res://Assets/Projectiles/Swing Projectile/SwingProjectile.tscn" id="1_wy0jk"]
+[ext_resource type="Script" path="res://Assets/Projectiles/ProjectileSpawnerStats.gd" id="2_rd6vh"]
+
+[resource]
+script = ExtResource("2_rd6vh")
+spawn_count = 2
+attack_cd = 1.0
+projectile = ExtResource("1_wy0jk")

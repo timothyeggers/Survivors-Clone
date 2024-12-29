@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://d2mq3otxipp56"]
 
-[ext_resource type="Script" path="res://Assets/ProjectileComponent.gd" id="1_dkdlb"]
-[ext_resource type="Script" path="res://Assets/Components/HitComponent.gd" id="1_kam6f"]
-[ext_resource type="Script" path="res://Assets/HitStats.gd" id="2_nv4ra"]
+[ext_resource type="Script" path="res://Assets/Projectiles/ProjectileComponent.gd" id="1_dkdlb"]
+[ext_resource type="Script" path="res://Assets/Core/HitComponent.gd" id="1_kam6f"]
+[ext_resource type="Script" path="res://Assets/Projectiles/HitStats.gd" id="2_nv4ra"]
 [ext_resource type="SpriteFrames" uid="uid://cr7xs4iv6l84o" path="res://Assets/weapons.tres" id="4_3howb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rljdl"]

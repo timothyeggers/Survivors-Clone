@@ -5,6 +5,7 @@
 [node name="Boar Corpse" type="Node"]
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, -24)
 sprite_frames = ExtResource("1_n7x3j")
 animation = &"Death"

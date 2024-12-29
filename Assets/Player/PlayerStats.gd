@@ -15,7 +15,7 @@ extends Resource
 @export var armor = 1
 @export var move_speed = 1
 
-@export_group("Soul")
-@export var attacks = 2
-@export var attack_speed = 1
-@export var attack_cd = 0.5
+#@export_group("Soul")
+#@export var attacks = 2
+#@export var attack_speed = 1
+#@export var attack_cd = 0.5

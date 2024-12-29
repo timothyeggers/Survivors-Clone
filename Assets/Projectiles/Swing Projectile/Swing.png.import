@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://w8c7djl2boyl"
-path="res://.godot/imported/Swing.png-e57d61ac1dc7a9a532a673be16b0ea58.ctex"
+path="res://.godot/imported/Swing.png-5372bb9f3f5cf750080963361bafc67b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Swing Attack/Swing.png"
-dest_files=["res://.godot/imported/Swing.png-e57d61ac1dc7a9a532a673be16b0ea58.ctex"]
+source_file="res://Assets/Projectiles/Swing Projectile/Swing.png"
+dest_files=["res://.godot/imported/Swing.png-5372bb9f3f5cf750080963361bafc67b.ctex"]
 
 [params]
 

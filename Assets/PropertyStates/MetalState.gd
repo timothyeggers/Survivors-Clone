@@ -1,6 +1,6 @@
 class_name MetalState extends State
 
-const METAL_SHADER = preload("res://Assets/Metal.gdshader")
+const METAL_SHADER = preload("res://Assets/Shaders/Metal.gdshader")
 
 @export var root: Node
 @export var velocity: VelocityComponent

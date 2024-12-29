@@ -1,6 +1,6 @@
 class_name WaterState extends State
 
-const WATER_SHADER = preload("res://Assets/Water.gdshader")
+const WATER_SHADER = preload("res://Assets/Shaders/Water.gdshader")
 
 @export var root: Node
 @export var material: MaterialBuffer

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d1ghftmjdh26w"]
 
-[ext_resource type="Script" path="res://Assets/Components/AI/AIComponent.gd" id="1_xfcta"]
+[ext_resource type="Script" path="res://Assets/Core/AI/AIComponent.gd" id="1_xfcta"]
 
 [node name="AIComponent" type="Area2D"]
 collision_layer = 512

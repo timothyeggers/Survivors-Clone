@@ -16,12 +16,12 @@ config/features=PackedStringArray("4.2")
 
 [autoload]
 
-Game="*res://Assets/Game.gd"
-Audio="*res://Assets/AudioStreamPlayer.gd"
+Game="*res://Assets/Core/Game.gd"
+Audio="*res://Assets/Core/Sound/AudioStreamPlayer.gd"
 UI="*res://Assets/UI/UI.gd"
-AI="*res://Assets/Components/AI/AIManager.gd"
-Inventory="*res://Inventory.gd"
-Projectiles="*res://ProjectilesManager.gd"
+AI="*res://Assets/Core/AI/AIManager.gd"
+Inventory="*res://Assets/Inventory/Inventory.gd"
+Projectiles="*res://Assets/Projectiles/ProjectilesManager.gd"
 
 [display]
 

@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
-@export var hit_box: SwingHitBox
 @export var stats: PlayerStats
-
-const SWING_CD = 0.2
 
 var _input = Vector2.ZERO
 var _can_flip = true
 
+# How many consecutive attacks before cooldown
+# SWING_CD is the time between consecutive attacks
+const SWING_CD = 0.2
 @onready var _swings_left = stats.attacks
-@onready var _attack_timer = $"Attack Speed"
-@onready var _attack_cd_timer = $"Attack Cooldown"
+
+# This is the time between attacks
+@onready var _attack_timer: Timer = $"Attack Speed"
+@onready var _attack_cd_timer: Timer = $"Attack Cooldown"
 
 
 func _ready():
@@ -54,7 +56,7 @@ func _on_attack_timeout():
 	
 	_swings_left -= 1
 	
-	hit_box.trigger()
+	#hit_box.trigger()
 	$AnimationPlayer.seek(0)
 	$AnimationPlayer.play("attack")
 	

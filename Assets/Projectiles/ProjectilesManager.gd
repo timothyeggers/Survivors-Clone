@@ -11,10 +11,11 @@ func _process(delta):
 		var proj = _projectiles[i]
 		
 		# clean dead projectiles
-		var root = proj.get_parent()
-		if !(root is Node2D):
-			_projectiles.remove_at(i)
-			continue
+		if (is_instance_valid(proj)):
+			var root = proj.get_parent()
+			if !(root is Node2D):
+				_projectiles.remove_at(i)
+				continue
 		
-		(root as Node2D).global_position += proj.direction * proj.speed * delta
-		(root as Node2D).rotate(proj.rotate_speed * delta)
+			(root as Node2D).global_position += proj.direction * proj.speed * delta
+			(root as Node2D).rotate(proj.rotate_speed * delta)

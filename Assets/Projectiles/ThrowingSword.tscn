@@ -1,15 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5xnpvusb6fhx"]
 
-[ext_resource type="Script" path="res://Assets/Components/HitComponent.gd" id="2_ldtla"]
-[ext_resource type="Script" path="res://Assets/ProjectileComponent.gd" id="3_iljv8"]
-[ext_resource type="Script" path="res://Assets/HitStats.gd" id="3_xqa38"]
-[ext_resource type="SpriteFrames" uid="uid://cr7xs4iv6l84o" path="res://Assets/weapons.tres" id="4_rxigr"]
+[ext_resource type="Script" path="res://Assets/Core/HitComponent.gd" id="1_qklxf"]
+[ext_resource type="Script" path="res://Assets/Projectiles/HitStats.gd" id="2_jdbi6"]
+[ext_resource type="Script" path="res://Assets/Projectiles/ProjectileComponent.gd" id="3_55bpf"]
+[ext_resource type="SpriteFrames" uid="uid://cr7xs4iv6l84o" path="res://Assets/weapons.tres" id="4_wn3hb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lr4yb"]
 size = Vector2(29, 7)
 
 [sub_resource type="Resource" id="Resource_d5m1b"]
-script = ExtResource("3_xqa38")
+script = ExtResource("2_jdbi6")
 damage = 4
 knockback = 6
 stun = 0.1
@@ -31,13 +31,12 @@ monitoring = false
 position = Vector2(2.5, 0.5)
 shape = SubResource("RectangleShape2D_lr4yb")
 
-[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("box")]
-script = ExtResource("2_ldtla")
+[node name="HitComponent" type="Node" parent="."]
+script = ExtResource("1_qklxf")
 stats = SubResource("Resource_d5m1b")
-box = NodePath("../Area2D")
 
 [node name="ProjectileComponent" type="Node" parent="."]
-script = ExtResource("3_iljv8")
+script = ExtResource("3_55bpf")
 rotate_speed = 0.0
 speed = 200.0
 
@@ -45,7 +44,7 @@ speed = 200.0
 position = Vector2(-5, 0)
 rotation = 0.785398
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("4_rxigr")
+sprite_frames = ExtResource("4_wn3hb")
 animation = &"sword"
 flip_h = true
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SoundEffect" load_steps=3 format=3 uid="uid://bdw8gl6vubyql"]
 
-[ext_resource type="Script" path="res://Assets/SoundEffect.gd" id="1_ggvod"]
+[ext_resource type="Script" path="res://Assets/Core/Sound/SoundEffect.gd" id="1_ggvod"]
 [ext_resource type="AudioStream" uid="uid://csawbk3om1j7p" path="res://Assets/Generic SFX/bomb_death.wav" id="2_oot61"]
 
 [resource]

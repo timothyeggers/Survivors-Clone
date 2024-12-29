@@ -1,12 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://bem18swgao5d2"]
 
-[ext_resource type="Script" path="res://Assets/Swing Attack/SwingAttack.gd" id="1_n4pxr"]
-[ext_resource type="Texture2D" uid="uid://w8c7djl2boyl" path="res://Assets/Swing Attack/Swing.png" id="2_oghbk"]
-[ext_resource type="Script" path="res://Assets/Components/HitComponent.gd" id="3_ve6ch"]
-[ext_resource type="Script" path="res://Assets/HitStats.gd" id="4_2e7kn"]
+[ext_resource type="Script" path="res://Assets/Projectiles/ProjectileComponent.gd" id="1_84lsa"]
+[ext_resource type="Script" path="res://Assets/Core/HitComponent.gd" id="2_wxhow"]
+[ext_resource type="Script" path="res://Assets/Projectiles/HitStats.gd" id="3_qbsos"]
+[ext_resource type="Texture2D" uid="uid://w8c7djl2boyl" path="res://Assets/Projectiles/Swing Projectile/Swing.png" id="4_66whi"]
 
 [sub_resource type="Animation" id="Animation_0lhql"]
 resource_name = "swing"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -50,7 +51,7 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -63,9 +64,9 @@ _data = {
 "swing": SubResource("Animation_0lhql")
 }
 
-[sub_resource type="Resource" id="Resource_3pv32"]
-script = ExtResource("4_2e7kn")
-damage = 4
+[sub_resource type="Resource" id="Resource_tpdv2"]
+script = ExtResource("3_qbsos")
+damage = 6
 knockback = 6
 stun = 0.1
 piereces = 0
@@ -75,30 +76,35 @@ type = 0
 size = Vector2(64, 112)
 
 [node name="Swing Attack" type="Node2D"]
-script = ExtResource("1_n4pxr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_gxjvo")
 }
+autoplay = "swing"
+
+[node name="ProjectileComponent" type="Node" parent="."]
+script = ExtResource("1_84lsa")
+rotate_speed = 0.0
+speed = 0.0
+
+[node name="HitComponent" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
+script = ExtResource("2_wxhow")
+stats = SubResource("Resource_tpdv2")
+hitbox = NodePath("../HitBox")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 z_index = 10
 z_as_relative = false
+y_sort_enabled = true
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_oghbk")
+texture = ExtResource("4_66whi")
 
-[node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-monitoring = false
-script = ExtResource("3_ve6ch")
-stats = SubResource("Resource_3pv32")
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 4
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(32, 0)
 shape = SubResource("RectangleShape2D_ckh50")

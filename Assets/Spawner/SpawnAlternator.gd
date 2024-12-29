@@ -1,5 +1,10 @@
 extends Node
+"""
+Any children  of type Spawner will flip X/Y axis for spawning randomly.
+This will also handle enemy swapping, etc, eventually.
+"""
 
+## The timer cooldown for spawning
 @export var timer: Timer
 
 var _spawners = []

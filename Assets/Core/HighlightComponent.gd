@@ -1,6 +1,6 @@
 class_name HighlightComponent extends Node
 
-const OUTLINE_SHADER = preload("res://Assets/Outline.gdshader")
+const OUTLINE_SHADER = preload("res://Assets/Shaders/Outline.gdshader")
 
 @export var material: MaterialBuffer
 
